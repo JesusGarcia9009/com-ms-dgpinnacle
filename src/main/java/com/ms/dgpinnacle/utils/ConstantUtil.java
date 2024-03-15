@@ -25,7 +25,7 @@ public class ConstantUtil {
 	 * Security
 	 */
 	public static final String[] PATH_ARRAY = new String[] { "/**/v2/api-docs", "/configuration/ui", "/swagger-resources/**",
-			"/api/gcom/operacional/login/**", "/configuration/security", "/**/swagger-ui/**", "/swagger-ui.html",
+			"/api/dgpinnacle/login/**", "/configuration/security", "/**/swagger-ui/**", "/swagger-ui.html",
 			"/webjars/**" };
 	public static final String[] PATH_RESOURCES_ARRAY = new String[] { "/", "/favicon.ico", "/**/*.png", "/**/*.gif", "/**/*.svg", "/**/*.jpg",
 			"/**/*.html", "/**/*.css", "/**/*.js" };
