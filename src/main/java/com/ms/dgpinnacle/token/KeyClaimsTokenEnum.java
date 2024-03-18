@@ -8,7 +8,7 @@ public enum KeyClaimsTokenEnum {
 	USERNAME("username"),
 	AUTHORITIES("authorities"),
 	PROFILE("profile"),
-	RUT("rut"),
+	ID("id"),
 	USERINPUT("userinput"),
 	PERFILES("perfiles"),
 	APLICACIONES("aplicaciones");

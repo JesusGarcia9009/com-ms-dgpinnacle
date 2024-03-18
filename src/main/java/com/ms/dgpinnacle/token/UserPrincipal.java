@@ -20,7 +20,7 @@ public class UserPrincipal implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private Long idUsuario;
-	private String rut;
+	private String socialSecurityNumber;
 	private String fullName;
 	private String mail;
 	private String businessPosition;

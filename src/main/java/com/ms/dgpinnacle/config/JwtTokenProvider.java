@@ -64,7 +64,7 @@ public class JwtTokenProvider {
 		claims.put(KeyClaimsTokenEnum.FULL_NAME.getDescripcion(), userPrincipal.getFullName());
 		claims.put(KeyClaimsTokenEnum.MAIL.getDescripcion(), userPrincipal.getMail());
 		claims.put(KeyClaimsTokenEnum.USERNAME.getDescripcion(), userPrincipal.getUsername());
-		claims.put(KeyClaimsTokenEnum.RUT.getDescripcion(), userPrincipal.getRut());
+		claims.put(KeyClaimsTokenEnum.ID.getDescripcion(), userPrincipal.getSocialSecurityNumber());
 
 		Date expiryDate = new Date(System.currentTimeMillis() + 24000000);
 
@@ -125,7 +125,7 @@ public class JwtTokenProvider {
 		userPrincipal.setFullName(findKeyClaimsInData(KeyClaimsTokenEnum.FULL_NAME, claims));
 		userPrincipal.setMail(findKeyClaimsInData(KeyClaimsTokenEnum.MAIL, claims));
 		userPrincipal.setUsername(findKeyClaimsInData(KeyClaimsTokenEnum.USERNAME, claims));
-		userPrincipal.setRut(findKeyClaimsInData(KeyClaimsTokenEnum.RUT, claims));
+		userPrincipal.setSocialSecurityNumber(findKeyClaimsInData(KeyClaimsTokenEnum.ID, claims));
 
 		return userPrincipal;
 	}

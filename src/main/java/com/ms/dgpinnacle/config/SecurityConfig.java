@@ -21,7 +21,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.ms.dgpinnacle.service.CustomUserDetailsService;
+import com.ms.dgpinnacle.security.service.CustomUserDetailsService;
 import com.ms.dgpinnacle.utils.ConstantUtil;
 
 /**
