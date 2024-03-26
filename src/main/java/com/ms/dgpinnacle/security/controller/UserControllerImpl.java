@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ms.dgpinnacle.security.dto.UserDto;
 import com.ms.dgpinnacle.security.service.ProfileService;
 import com.ms.dgpinnacle.security.service.UsersService;
-import com.ms.dgpinnacle.token.ProfileDto;
+import com.ms.dgpinnacle.security.token.ProfileDto;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.ms.dgpinnacle.entity.Profile;
-import com.ms.dgpinnacle.token.ProfileDto;
+import com.ms.dgpinnacle.business.entity.Profile;
+import com.ms.dgpinnacle.security.token.ProfileDto;
 
 /**
  * IProfileRepository (operaciones CRUD de la entidad) - Spring Boot
@@ -21,13 +21,13 @@ public interface IProfileRepository extends CrudRepository<Profile, Long> {
 	
 	Optional<Profile> findByProfileName(String profileName);
 	
-	@Query(   "   SELECT new com.ms.dgpinnacle.token.ProfileDto (p.id ,p.profileName) " 
+	@Query(   "   SELECT new com.ms.dgpinnacle.security.token.ProfileDto (p.id ,p.profileName) " 
 			+ "     FROM Users u "
 			+ "          INNER JOIN u.profile p "
 			+ "    WHERE u.id = :idUser ")
 	ProfileDto getProfileByUsername(Long idUser);
 	
-	@Query(   "   SELECT new com.ms.dgpinnacle.token.ProfileDto (p.id ,p.profileName) " 
+	@Query(   "   SELECT new com.ms.dgpinnacle.security.token.ProfileDto (p.id ,p.profileName) " 
 			+ "     FROM Profile p ")
 	List<ProfileDto> findProfileList();
 	

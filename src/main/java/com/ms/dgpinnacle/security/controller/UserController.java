@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ms.dgpinnacle.security.dto.UserDto;
-import com.ms.dgpinnacle.token.ProfileDto;
+import com.ms.dgpinnacle.security.token.ProfileDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

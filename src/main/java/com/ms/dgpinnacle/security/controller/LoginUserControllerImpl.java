@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ms.dgpinnacle.config.JwtTokenProvider;
+import com.ms.dgpinnacle.JwtTokenProvider;
 import com.ms.dgpinnacle.security.dto.UserAuthRequestDTO;
 import com.ms.dgpinnacle.security.dto.UserAuthResponseDTO;
-import com.ms.dgpinnacle.token.UserPrincipal;
+import com.ms.dgpinnacle.security.token.UserPrincipal;
 
 import lombok.extern.slf4j.Slf4j;
 

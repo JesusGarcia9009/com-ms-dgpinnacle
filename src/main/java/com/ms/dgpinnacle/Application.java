@@ -13,12 +13,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import com.ms.dgpinnacle.config.SecurityConfig;
-
 @SpringBootApplication
 @ImportAutoConfiguration({ SecurityConfig.class })
 @ComponentScan(basePackages = { "com.ms.dgpinnacle" })
-@EntityScan(basePackages = { "com.ms.dgpinnacle.entity" })
+@EntityScan(basePackages = { "com.ms.dgpinnacle.business.entity" })
 @EnableJpaRepositories(basePackages = { "com.ms.dgpinnacle" })
 public class Application {
 

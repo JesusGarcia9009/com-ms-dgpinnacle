@@ -12,6 +12,14 @@ public class ConstantUtil {
 	private ConstantUtil() {
 
 	}
+	
+	/**
+	 * Errorres
+	 */
+	public static final String MSG_OPERATION_DUPL = "OPERATION_DUPL";
+	public static final String MSG_LOAN_NOT_EXIST_DUPL = "LOAN_NOT_EXIST";
+	public static final String MSG_MAX_PAYMENT_TO_HIGH = "MSG_MAX_PAYMENT_TO_HIGH";
+	public static final String MSG_MAIL_DUPL = "MAIL_DUPL";
 
 	/**
 	 * Logs
@@ -39,25 +47,6 @@ public class ConstantUtil {
     public static final String  PESO_ENTERO_SINGULAR = "peso";
     public static final String  PESO_ENTERO_PLURAL = "pesos";
 
-	
-	/**
-	 * Duplicado
-	 */
-	public static final String MSG_MAIL_DUPL = "MAIL_DUPL";
-	public static final String MSG_PRODUCT_DUPL = "PRODUCT_DUPL";
-	public static final String MSG_CLIENT_DUPL = "CLIENT_DUPL";
-	public static final String MSG_PROVIDER_DUPL = "PROVIDER_DUPL";
-	public static final String MSG_BRAND_DUPL = "BRAND_DUPL";
-	public static final String MSG_SOURCE_DUPL = "SOURCE_DUPL";
-	public static final String MSG_QUOTATION_DELIVERY_DUPL = "QUOTATION_DELIVERY_DUPL";
-	public static final String MSG_INVENTORY_REASON_DUPL = "INVENTORY_REASON_DUPL";
-	public static final String MSG_GROUP_DUPL = "GROUP_DUPL";
-	public static final String MSG_MODEL_DUPL = "MODEL_DUPL";
-	public static final String MSG_PRODUCT_TYPE_DUPL = "PRODUCT_TYPE_DUPL";
-	public static final String MSG_DELIVERY_TYPE_DUPL = "DELIVERY_TYPE_DUPL";
-	public static final String MSG_PAYMENT_METHOD_DUPL = "PAYMENT_METHOD_DUPL";
-	
-	public static final String DEPENDENCY = "DEPENDENCY";
 	
 	/**
 	 * Ver

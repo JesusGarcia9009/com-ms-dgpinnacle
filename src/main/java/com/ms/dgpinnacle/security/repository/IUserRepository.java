@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.ms.dgpinnacle.entity.Users;
+import com.ms.dgpinnacle.business.entity.Users;
 import com.ms.dgpinnacle.security.dto.UserDto;
 
 /**
@@ -20,15 +20,15 @@ public interface IUserRepository extends CrudRepository<Users, Long> {
 
 	Optional<Users> findByUsernameOrMail(String Username, String mail);
 	
-    Users findByRutOrUsername(String rut, String username);
+    Users findBySocialSecurityNumberOrUsername(String socialSecurityNumber, String username);
 	
-	Long countByRutOrUsername(String rut, String username);
+	Long countBySocialSecurityNumberOrUsername(String socialSecurityNumber, String username);
 	
-	@Query(   "   SELECT new com.ms.dgpinnacle.dto.UserDto (u.id ,u.rut ,u.names ,u.middleName ,u.lastName ,u.mail ,u.businessPosition ,u.pass, p.id, p.profileName) " 
+	@Query(   "   SELECT new com.ms.dgpinnacle.security.dto.UserDto (u.id ,u.socialSecurityNumber ,u.fullNames ,u.mail ,u.businessPosition ,u.pass, p.id, p.profileName) " 
 			+ "     FROM Users u "
 			+ "			 inner join u.profile p ")
 	List<UserDto> findAllUsers();
 	
-	Users findByMailOrRutOrUsername(String mail, String rut, String username);
+	Users findByMailOrSocialSecurityNumberOrUsername(String mail, String socialSecurityNumber, String username);
 	
 }

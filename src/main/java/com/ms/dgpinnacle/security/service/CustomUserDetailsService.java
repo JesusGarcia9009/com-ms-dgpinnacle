@@ -8,17 +8,17 @@ import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_START;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.ms.dgpinnacle.entity.Users;
+import com.ms.dgpinnacle.business.entity.Users;
 import com.ms.dgpinnacle.security.repository.IProfileRepository;
-import com.ms.dgpinnacle.token.UserPrincipal;
+import com.ms.dgpinnacle.security.token.UserPrincipal;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -30,13 +30,11 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private UsersService usersService;
-
-	@Autowired
-	private IProfileRepository profileRepository;
+	private final UsersService usersService;
+	private final IProfileRepository profileRepository;
 
 	@Override
 	public UserPrincipal loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
@@ -71,7 +69,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		userPrincipal.setIdUsuario(model.getId());
 		userPrincipal.setMail(model.getMail());
-		userPrincipal.setFullName(model.getNames() + " " + model.getMiddleName() + " " + model.getLastName());
+		userPrincipal.setFullName(model.getFullNames());
 		userPrincipal.setUsername(model.getUsername());
 		userPrincipal.setSocialSecurityNumber(model.getSocialSecurityNumber());
 		userPrincipal.setBusinessPosition(model.getBusinessPosition());

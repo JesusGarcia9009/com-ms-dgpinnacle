@@ -12,8 +12,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 	
 	@JsonProperty
@@ -25,13 +25,7 @@ public class UserDto {
 	private String socialSecurityNumber;
 	
 	@JsonProperty
-	private String names;
-	
-	@JsonProperty
-	private String middleName;
-	
-	@JsonProperty
-	private String lastName;
+	private String fullNames;
 	
 	@NotNull
 	@NotBlank
@@ -52,5 +46,6 @@ public class UserDto {
 	
 	@JsonProperty
 	private String profileName;
+
 
 }
