@@ -232,17 +232,9 @@ public class LetterConfigNewServices {
 		letter.setClients(clientRepository.getClientsByLetter(id));
 		
 		WebContext context = new WebContext(request, response, servletContext);
-//        context.setVariable("subTotal", subTotal);
-//        context.setVariable("descuento", descuento);
-//        context.setVariable("neto", neto);
-//        context.setVariable("iva", iva);
-//        context.setVariable("total", total);
+		context.setVariable("to", Utils.obtenerNombresSeparadosPorComa(letter.getClients()));
         context.setVariable("letter", letter);
         context.setVariable("now", (new Date()).toLocaleString());
-//        context.setVariable("quotationProductList", list);
-//        context.setVariable("client", modelClient);
-//        context.setVariable("attentionMail", token.getMail());
-//        context.setVariable("descuento_100", model.getDiscount().intValue());
         
         String orderHtml = templateEngine.process("letter.html", context);
 
@@ -253,6 +245,19 @@ public class LetterConfigNewServices {
         byte[] bytes = target.toByteArray();
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return bytes;
+	}
+
+	public boolean delete(Long id) {
+		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		LetterConfig letter = letterConfigRepository.findById(id).orElse(null);
+		List<LetterConfig> letterList = operationRepository.findlettersByOperationId(letter.getOperation().getId());
+		for (LetterConfig item : letterList) {
+			item.setDeleted(true);
+			item.setActive(false);
+		}
+		letterConfigRepository.saveAll(letterList);
+		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		return Boolean.TRUE;
 	}
 
 }

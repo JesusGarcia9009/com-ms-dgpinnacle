@@ -111,5 +111,20 @@ public class LetterConfigControllerImpl implements LetterConfigController {
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return ResponseEntity.ok(result);
 	}
+	
+	@Override
+	@GetMapping("/delete/{id}")
+	public ResponseEntity<?> delete(@PathVariable Long id) throws Exception {
+		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		boolean response = false;
+
+		try {
+			response = letterConfigServices.delete(id);
+		} catch (Exception e) {
+				throw new Exception(e.getMessage());
+		}
+		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 
 }

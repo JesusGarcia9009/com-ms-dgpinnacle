@@ -27,6 +27,7 @@ import com.ms.dgpinnacle.business.clients.dto.Application;
 import com.ms.dgpinnacle.business.clients.dto.Contact;
 import com.ms.dgpinnacle.business.clients.dto.EncompassResponseDto;
 import com.ms.dgpinnacle.business.clients.dto.Milestone;
+import com.ms.dgpinnacle.business.dto.ClientDto;
 import com.ms.dgpinnacle.business.dto.EnCompassClientDto;
 import com.ms.dgpinnacle.business.dto.EnCompassLetterConfigDto;
 import com.ms.dgpinnacle.business.dto.EnCompassLoanOfficerDto;
@@ -284,5 +285,18 @@ public class Utils {
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return loan;
 	}
+	
+	public static String obtenerNombresSeparadosPorComa(List<ClientDto> clients) {
+        StringBuilder sb = new StringBuilder();
+        for (ClientDto client : clients) {
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
+            sb.append(client.getName());
+            sb.append(" ");
+            sb.append(client.getLastName());
+        }
+        return sb.toString();
+    }
 
 }

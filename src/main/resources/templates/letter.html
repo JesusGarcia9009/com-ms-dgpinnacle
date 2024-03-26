@@ -19,33 +19,34 @@
 			width: 100%
 		}
 
+		.datos-seccion td {
+			text-align: justify;
+		}
+
 		.key {
 			font-weight: bold;
 			width: 30%
 		}
 
 		@page {
-			margin: 12%;
-			size: A4 portrait;
-
-			@bottom-right {
-				content: element(footer);
-				vertical-align: top;
-				padding-top: 5px;
-			}
-
-			@top-right {
-				content: element(header);
-				vertical-align: bottom;
-				padding-bottom: 10px;
-			}
-
-			size: A4 portrait;
-			margin-top:6cm;
-			margin-left:1cm;
-			margin-right:1cm;
-			margin-bottom:5.5cm;
-		}
+            margin: 7.6%;
+            size: A4 portrait;
+            @bottom-right {
+                content: element(footer);
+                vertical-align: top;
+                padding-top: 5px;
+            }
+            @top-right {
+                content: element(header);
+                vertical-align: bottom;
+                padding-bottom: 10px;
+            }
+            size: A4 portrait;
+            margin-top:4cm;
+            margin-left:1cm;
+            margin-right:1cm;
+            margin-bottom:2.5cm;
+        }
 
 		div.header {
 			display: block;
@@ -137,7 +138,7 @@
 		.detalle-productos {
 			background-color: #2F528F;
 			color: white;
-			width: 30%;
+			width: 35%;
 			font-weight: bold;
 		}
 
@@ -163,6 +164,10 @@
 		.right {
 			float: right;
 		}
+		.pagebreak {
+            page-break-before: always;
+        }
+        
 	</style>
 </head>
 
@@ -184,11 +189,20 @@
 		</table>
 
 	</div>
+	
+	<div class="footer">
+		<br />
+		<br />
+		<p><span id="pagenumber"></span> / <span id="pagecount"></span></p>
+	</div>
+	
+	
 	<div class="content">
 		<table style="width: 100%">
 			<tr style="width: 100%">
-				<td style="vertical-align: top; font-size: x-large;">
-					<span>Your actual rate, payment, and costs could be higher. <br /> Get an official Loan Estimate
+				<td style="vertical-align: top; font-size: x-large; ">
+					<span style="background-color: black;
+    color: white;">Your actual rate, payment, and costs could be higher. <br /> Get an official Loan Estimate
 						before choosing a loan.</span>
 				</td>
 
@@ -207,8 +221,8 @@
 		<br />
 		<table>
 			<tr>
-				<td style="border-bottom: 5px solid #2F528F;" class="detalle-productos">REQUALIFICATION LETTER</td>
-				<td style="border-bottom: 5px solid #2F528F;" class="empty-data"></td>
+				<td style="border-bottom: 3px solid #2F528F;" class="detalle-productos">REQUALIFICATION LETTER</td>
+				<td style="border-bottom: 3px solid #2F528F;" class="empty-data"></td>
 			</tr>
 		</table>
 		<br />
@@ -217,148 +231,139 @@
 			<table>
 				<tr>
 					<td class="key">To:</td>
-					<td th:utext="${contratante.get('rut')+'-'+contratante.get('digitoVerificador')}">Sin información
+					<td th:utext="${to}">Sin información
 					</td>
 				</tr>
 				<tr>
 					<td class="key">Address:</td>
-					<td th:utext="${letter.fixDataConditions}">Sin información</td>
+					<td th:utext="${letter.location}">Sin información</td>
 				</tr>
 				<tr>
 					<td class="key">Sales Price:</td>
-					<td th:utext="${letter.fixDataConditions}">Sin información</td>
+					<td th:utext="${letter.price}">Sin información</td>
 				</tr>
 				<tr>
 					<td class="key">Loan Amount:</td>
-					<td th:utext="${letter.fixDataConditions}">Sin información</td>
+					<td th:utext="${letter.loanAmount}">Sin información</td>
 				</tr>
 				<tr>
 					<td class="key">Loan Program:</td>
-					<td th:utext="${letter.fixDataConditions}">Sin información</td>
+					<td th:utext="${letter.loanType}"></td>
 				</tr>
 				<tr>
 					<td class="key">Loan Type:</td>
-					<td th:utext="${letter.fixDataConditions}">Sin información</td>
+					<td th:utext="${letter.loanType}">Sin información</td>
 				</tr>
-				
+
 			</table>
 		</div>
-		
-		<br /><br /><br />
-		<br /><br /><br />
-		<br /><br /><br />
-		<br /><br /><br />
+		<div class="datos-seccion">
+			<table class="tabla" style="width:100%; border-collapse: collapse; font-size:15px; text-align: left;">
+				<tr placeholder="contenido_tabla">
+					<td><span th:utext="${letter.fixDataSubject}">It is with great pride and pleasure that DG Pinnacle
+							Funding, LLC extends to you the pre-approval of your Mortgage Loan. After reviewing your
+							credit report financials, we are able to issue your LOAN PRE-QUALIFICATION with the terms
+							above. </span></td>
+				</tr>
+			</table>
+		</div>
+		<div class="datos-seccion">
+			<table class="tabla" style="width:100%; border-collapse: collapse; font-size:15px; text-align: left;">
+				<tr placeholder="contenido_tabla">
+					<td><span th:utext="${letter.fixDataConditions}">Specific conditions required prior to closing
+							include the following:
+
+							1) Evidence of Hazard Insurance and Flood Insurance (if required).
+
+							2) Satisfactory property appraisal.
+
+							3) Clear title work.
+
+							4) Any other condition as per the underwriter request.
+
+							We understand that financing your home is one of the most important decisions you will make
+							in your lifetime DG Pinnacle Funding, LLC would like to make your experience as delightful
+							as possible.
+
+							Please feel free to call us if you have any questions on the terms and conditions of this
+							approval.
+
+							Thank you for your business. </span></td>
+				</tr>
+			</table>
+		</div>
+		<div class="datos-seccion">
+			<table class="tabla" style="width:100%; border-collapse: collapse; font-size:15px; text-align: left;">
+				<tr placeholder="contenido_tabla">
+					<td><span th:utext="${letter.fixDataFinaltext}">Sincerely,
+							License No: NMLS ID:
+							Phone: </span></td>
+				</tr>
+			</table>
+			
+		</div>
+		<div class="pagebreak"></div>
 		<table style="width: 100%">
 			<tr style="width: 100%">
-				<td style="width: 250pt;">
-					<div class="text-left" style="vertical-align: top; text-align: left;">
-						<br />
-						<br />
-						<span>Vendedor: <b th:utext="${letter.fixDataConditions}">Rodolfo Gacitua Bravo test test
-								test</b></span>
-						<br /> <br />
-						<span>Empresa: <b th:utext="${letter.fixDataSubject}">Jesus Company</b></span>
-						<br /> <br />
-						<span>Atención: <b th:utext="${letter.fixDataConditions}">Jesus Company</b></span>
-						<br /> <br />
-						<span th:if="${letter.fixDataSubject!=null or letter.fixDataSubject!=''}">Notas: <b
-								th:utext="${letter.fixDataSubject}">Notas Adicionales</b></span>
-						<br />
-					</div>
-				</td>
-				<td class="text-right" style="vertical-align: top; text-align: right; width: 169pt;">
-					<table style="width: 100%">
-						<tr style="width: 100%">
-							<td style="width: 169pt;">
-								<div class="text-left" style="vertical-align: top; text-align: right;">
-									<br />
-									<span>Subtotal:</span>
-									<br /> <br />
-									<span><span
-											th:utext="${#numbers.formatDecimal(letter.taxes,1, 'POINT',0, 'COMMA')}">1000000</span>%
-										Taxes:</span>
-									<br /> <br />
-									<span>Neto:</span>
-									<br /> <br />
-									<span>IVA:</span>
-									<br /> <br />
-									<span>TOTAL:</span>
-									<br />
-								</div>
-							</td>
-							<td class="text-right" style="vertical-align: top; text-align: right; width: 100pt;">
-								<div class="text-right" style="vertical-align: top; text-align: right;">
-									<br />
-									<span>$ <b
-											th:utext="${#numbers.formatDecimal(letter.taxes,1, 'POINT',0, 'COMMA')}">1000000</b></span>
-									<br /> <br />
-									<span>$ <b
-											th:utext="${#numbers.formatDecimal(letter.taxes,1, 'POINT',0, 'COMMA')}">1000000</b></span>
-									<br /> <br />
-									<span>$ <b
-											th:utext="${#numbers.formatDecimal(letter.taxes,1, 'POINT',0, 'COMMA')}">1000000</b></span>
-									<br /> <br />
-									<span>$ <b
-											th:utext="${#numbers.formatDecimal(letter.taxes,1, 'POINT',0, 'COMMA')}">1000000</b></span>
-									<br /> <br />
-									<span>$ <b
-											th:utext="${#numbers.formatDecimal(letter.taxes,1, 'POINT',0, 'COMMA')}">1000000</b></span>
-									<br /> <br />
-								</div>
-							</td>
-						</tr>
-
-					</table>
-				</td>
-			</tr>
-
-		</table>
-
-	</div>
-	<div class="footer">
-		<table style="width: 100%">
-			<tr style="width: 100%">
-				<td class="text-left" style="width: 60%; vertical-align: top;">
-					<p style="text-align: left; font-size: 10px;">
-						LOS TIEMPOS DE ENTREGA SON ESTIMADOS, Y NUESTRA EMPRESA NO SE RESPONSABILIZA POR ATRASOS
-						PRODUCIDOS POR ADUANAS Y/O FALTA DE STOCK EN FABRICA AL MOMENTO DE CURSAR LA ORDEN RESPECTIVA
-					</p>
-					<br />
-					<p style="text-align: left; font-size: 10px;">
-						<b>STOCK SUJETO A VARIACIÓN</b>
-						<br />
-						<b>COTIZACIÓN VÁLIDA POR 2 DÍAS</b>
-					</p>
-					<br />
-					<p style="text-align: left;font-size: 10px;">
-						Sin otro particular, y atento a sus consultas o informacion adicional, les saluda atentamente.
-					</p>
-					<br />
-					<p style="text-align: center;font-size: 10px;">
-						<b>Gacitúa y Cia. Ltda.</b>
-					</p>
-				</td>
-				<td class="text-left" style="width: 60%; vertical-align: top; ">
-					<p style="text-align: left; font-size: 12px;border: 1px solid #2F528F; padding: 10px;">
-						Formas de pago: Efectivo o Transferencia
-					</p>
-					<br />
-					<p style="text-align: left; font-size: 10px;border: 1px solid #2F528F;padding: 10px;">
-						<b>Datos de transferencia: </b>
-						<br />
-						<b>Gacitúa y Cía. Ltda.</b>
-						<br />
-						<b>76.090.126-1</b>
-						<br />
-						<b>Cuenta Corriente 0016617306 Banco Chile</b>
-						<br />
-						<b>johana.pineda@gacituarepuesto.cl</b>
-						<br />
-					</p>
+				<td class="text-left" style="vertical-align: top;">
+					<span style="font-size: 16px;"><b th:utext="${now}">01/19/2021</b>
 				</td>
 			</tr>
 		</table>
+		<div class="datos-seccion">
+			<table class="tabla" style="width:100%; border-collapse: collapse; font-size:15px; text-align: left;">
+				<tr placeholder="contenido_tabla">
+					<td>
+						<span><b>Dear </b></span>
+					</td>
+				</tr>
+				<tr placeholder="contenido_tabla">
+					<td>
+						<span>
+							Thank you for considering our buyer’s offer. We want you to know that we all share a 
+							common goal; Close this transaction ON TIME and communicate effectively. 
+						</span>
+					</td>
+				</tr>	
+				<tr placeholder="contenido_tabla">	
+					<td>
+						<span>
+							Here are some of the reasons why you and your client should consider working with 
+							DG Pinnacle Home Loans 
+						</span>
+					</td>
+				</tr>	
+				<tr placeholder="contenido_tabla">	
+					<td>
+						<ul>
+						  <li>&#8226; Transparent & effective communication/from start to finish.</li>
+						  <li>&#8226; Designated Appraisal Panel</li>
+						  <li>&#8226; In-house Processing & Underwriting</li>
+						  <li>&#8226; 7-day inspection or less</li>
+						  <li>&#8226; 10-day appraisal or less</li>
+						  <li>&#8226; 30-day loan commitment or less</li>
+						  <li>&#8226; 45-day closing or less</li>
+						</ul>
+					</td>
+				</tr>	
+				<tr placeholder="contenido_tabla">	
+					<td>
+						<span>
+							<b>Thank you for the opportunity to work together. </b>
+						</span>
+					</td>
+				</tr>	
+				<tr placeholder="contenido_tabla">	
+					<td>
+						<span>
+							Call Us, DG Pinnacle team can Help you! 
+						</span>
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
+	
 
 </body>
 

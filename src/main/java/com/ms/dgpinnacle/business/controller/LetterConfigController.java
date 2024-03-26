@@ -1,6 +1,7 @@
 package com.ms.dgpinnacle.business.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -71,4 +72,13 @@ public interface LetterConfigController {
 	@ApiOperation(value = "Get letter company", notes = "Obtiene documento de la carta")
 	public ResponseEntity<byte[]> getLetterDocument(@PathVariable Long id,@JwtUsuario UserPrincipal token, HttpServletRequest request, HttpServletResponse response) throws Exception;
 
+	/**
+	 * Method to delete letter 
+	 * 
+	 * @param id @See {@link Long}
+	 * @return ?
+	 */
+	@ApiOperation(value = "Delete letter", notes = "Elimina las cartas de la aplicacionde la aplicacion")
+	public ResponseEntity<?> delete(Long id) throws Exception;
+	
 }
