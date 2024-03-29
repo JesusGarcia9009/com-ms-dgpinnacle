@@ -29,5 +29,24 @@ public interface ClientController {
      */
     @ApiOperation(value = "Get client List", notes = "Retorna los datos referente a los clientes")
     public ResponseEntity<List<ClientDto>> findAllClientList(@JwtUsuario UserPrincipal token);
+    
+	/**
+	 * Method to save client of the application
+	 * 
+	 * @param dto ClientDto.class 
+	 * @return
+	 */
+	@ApiOperation(value = "Save client", notes = "Inserta o actualiza los clientes de la aplicacion")
+	public ResponseEntity<?> save(ClientDto request)throws Exception;
+	
+	
+	/**
+	 * Method to delete clients of the application
+	 * 
+	 * @param dto ClientDto.class 
+	 * @return boolean
+	 */
+	@ApiOperation(value = "Delete client", notes = "Elimina los clientes de la aplicacion")
+	public ResponseEntity<?> delete(ClientDto request) throws Exception;
 
 }

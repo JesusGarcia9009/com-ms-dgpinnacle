@@ -11,14 +11,14 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientDto implements Serializable {
+public class RealtorOperationDto implements Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private long id;
 	
 	private String cellphone;
 	
@@ -26,8 +26,12 @@ public class ClientDto implements Serializable {
 	
 	private String lastName;
 	
+	private String licenseNumber;
+	
 	private String mailingAdd;
 	
 	private String name;
+	
+	private String notes;
 
 }

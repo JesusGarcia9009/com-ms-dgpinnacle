@@ -18,7 +18,7 @@ public class RealtorDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private long id;
+	private Long id;
 	
 	private String cellphone;
 	
@@ -33,5 +33,15 @@ public class RealtorDto implements Serializable {
 	private String name;
 	
 	private String notes;
+	
+	private Long brokerCompanyId;
+	
+	private String brokerCompanyName;
+	
+	private String brokerCompanyPhone;
+	
+	private String brokerCompanyPhysicalAdd;
+	
+	private String brokerCompanyWebSite;
 
 }

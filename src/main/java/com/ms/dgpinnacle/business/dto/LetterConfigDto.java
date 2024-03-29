@@ -70,7 +70,7 @@ public class LetterConfigDto {
 	private List<ClientDto> clients = new ArrayList<ClientDto>();
 	
 	//Realtors
-	private List<RealtorDto> realtors = new ArrayList<RealtorDto>();
+	private List<RealtorOperationDto> realtors = new ArrayList<RealtorOperationDto>();
 	
 	public LetterConfigDto(Long id, Boolean active, Boolean deleted, double hoa, double insurance, double interest,
 			Double loanAmount, int loanTerm, String loanType, String location, double ltv, double maxPay, Double mi,

@@ -17,6 +17,8 @@ public class ConstantUtil {
 	 * Errorres
 	 */
 	public static final String MSG_OPERATION_DUPL = "OPERATION_DUPL";
+	public static final String MSG_REALTOR_DUPL = "MSG_REALTOR_DUPL";
+	public static final String MSG_CLIENT_DUPL = "MSG_CLIENT_DUPL";
 	public static final String MSG_LOAN_NOT_EXIST_DUPL = "LOAN_NOT_EXIST";
 	public static final String MSG_MAX_PAYMENT_TO_HIGH = "MSG_MAX_PAYMENT_TO_HIGH";
 	public static final String MSG_MAIL_DUPL = "MAIL_DUPL";

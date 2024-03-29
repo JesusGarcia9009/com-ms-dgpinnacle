@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.ms.dgpinnacle.business.dto.RealtorDto;
+import com.ms.dgpinnacle.business.dto.RealtorOperationDto;
 import com.ms.dgpinnacle.security.token.JwtUsuario;
 import com.ms.dgpinnacle.security.token.UserPrincipal;
 
@@ -28,6 +29,34 @@ public interface RealtorController {
      * @return A ResponseEntity containing a list of RealtorDto objects.
      */
     @ApiOperation(value = "Get realtor List", notes = "Retorna los datos referente a los realtors")
-    public ResponseEntity<List<RealtorDto>> findAllRealtorList(@JwtUsuario UserPrincipal token);
+    public ResponseEntity<List<RealtorOperationDto>> findAllRealtorList(@JwtUsuario UserPrincipal token);
+    
+    /**
+	 * Method to list the realtor of the application
+	 * 
+	 * @param dto RealtorDto.class 
+	 * @return
+	 */
+	@ApiOperation(value = "Get realtor List", notes = "Retorna los datos referente a los realtors de la aplicacion")
+	public ResponseEntity<List<RealtorDto>> getRealtorList()throws Exception;
+	
+	/**
+	 * Method to save realtor of the application
+	 * 
+	 * @param dto RealtorDto.class 
+	 * @return
+	 */
+	@ApiOperation(value = "Save realtor", notes = "Inserta o actualiza los realtors de la aplicacion")
+	public ResponseEntity<?> save(RealtorDto request)throws Exception;
+	
+	
+	/**
+	 * Method to delete realtors of the application
+	 * 
+	 * @param dto RealtorDto.class 
+	 * @return boolean
+	 */
+	@ApiOperation(value = "Delete realtor", notes = "Elimina los realtors de la aplicacion")
+	public ResponseEntity<?> delete(RealtorDto request) throws Exception;
 
 }

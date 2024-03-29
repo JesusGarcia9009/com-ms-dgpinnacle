@@ -68,11 +68,11 @@ public class Users implements java.io.Serializable {
 	}
 
 	@Column(name = "fullname", nullable = false, length = 100)
-	public String getFullNames() {
+	public String getFullName() {
 		return this.fullname;
 	}
 
-	public void setFullNames(String fullname) {
+	public void setFullName(String fullname) {
 		this.fullname = fullname;
 	}
 

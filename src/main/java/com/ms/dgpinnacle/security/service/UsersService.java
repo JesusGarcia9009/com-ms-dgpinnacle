@@ -10,7 +10,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ms.dgpinnacle.business.dto.EnCompassRealtorDto;
 import com.ms.dgpinnacle.business.entity.Profile;
 import com.ms.dgpinnacle.business.entity.Users;
 import com.ms.dgpinnacle.security.dto.UserDto;
@@ -58,9 +57,10 @@ public class UsersService {
 
 	public Boolean save(UserDto user) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
-		String username = user.getMail().substring( 0, user.getMail().indexOf("@"));
-		Users model = userRepository.findByMailOrSocialSecurityNumberOrUsername(user.getMail(), user.getSocialSecurityNumber(), username);
-		
+		String username = user.getMail().substring(0, user.getMail().indexOf("@"));
+		Users model = userRepository.findByMailOrSocialSecurityNumberOrUsername(user.getMail(),
+				user.getSocialSecurityNumber(), username);
+
 		if ((Objects.nonNull(model) && Objects.isNull(user.getId()))
 				|| Objects.nonNull(model) && !user.getId().equals(model.getId()))
 			throw new Exception(MSG_MAIL_DUPL);
@@ -70,15 +70,15 @@ public class UsersService {
 
 		if (profile.isPresent()) {
 
-			if(Objects.nonNull(user.getId()))
-				usuarioModel.setId(user.getId());
-				
-			usuarioModel.setFullNames(user.getFullNames());
+			if (Objects.nonNull(user.getId()))
+				usuarioModel = userRepository.findById(user.getId()).orElse(new Users());
+
+			usuarioModel.setFullName(user.getFullName());
 			usuarioModel.setMail(user.getMail());
 			usuarioModel.setSocialSecurityNumber(user.getSocialSecurityNumber());
 			usuarioModel.setProfile(profile.get());
 			usuarioModel.setUsername(username);
-			usuarioModel.setPass(user.getPass());
+			usuarioModel.setPass(user.getPassword());
 			usuarioModel.setBusinessPosition(user.getBusinessPosition());
 			userRepository.save(usuarioModel);
 		}
@@ -91,24 +91,6 @@ public class UsersService {
 		userRepository.deleteById(dto.getId());
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return true;
-	}
-
-	public Users save(EnCompassRealtorDto item) throws Exception {
-		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
-		Optional<Profile> profile = profileRepository.findById(4l);
-		Users x = new Users();
-		//datos de usuario
-		x.setFullNames(item.getFullName());
-		x.setMail(item.getEmail());
-		x.setSocialSecurityNumber("1111");
-		x.setProfile(profile.get());
-		x.setUsername(item.getEmail());
-		x.setPass("$2a$10$Ood6ka2EnrwXrd4XqF4DUeMZghaFw6va.wnO1noxkIglFCVcyUWJm");
-		x.setBusinessPosition("REALTOR");
-		
-		userRepository.save(x);
-		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
-		return x;
 	}
 
 }

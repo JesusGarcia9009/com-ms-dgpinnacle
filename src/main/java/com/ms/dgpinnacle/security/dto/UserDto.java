@@ -25,7 +25,7 @@ public class UserDto {
 	private String socialSecurityNumber;
 	
 	@JsonProperty
-	private String fullNames;
+	private String fullName;
 	
 	@NotNull
 	@NotBlank
@@ -38,7 +38,7 @@ public class UserDto {
 	@NotNull
 	@NotBlank
 	@JsonProperty
-	private String pass;
+	private String password;
 	
 	@NotNull
 	@JsonProperty

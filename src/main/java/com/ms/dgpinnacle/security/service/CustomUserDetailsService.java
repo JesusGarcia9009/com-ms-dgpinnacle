@@ -69,7 +69,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		userPrincipal.setIdUsuario(model.getId());
 		userPrincipal.setMail(model.getMail());
-		userPrincipal.setFullName(model.getFullNames());
+		userPrincipal.setFullName(model.getFullName());
 		userPrincipal.setUsername(model.getUsername());
 		userPrincipal.setSocialSecurityNumber(model.getSocialSecurityNumber());
 		userPrincipal.setBusinessPosition(model.getBusinessPosition());

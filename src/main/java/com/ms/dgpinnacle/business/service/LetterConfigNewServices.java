@@ -27,7 +27,7 @@ import com.ms.dgpinnacle.business.clients.dto.EncompassTokenResponseDto;
 import com.ms.dgpinnacle.business.dto.ClientDto;
 import com.ms.dgpinnacle.business.dto.EnCompassLetterConfigDto;
 import com.ms.dgpinnacle.business.dto.LetterConfigDto;
-import com.ms.dgpinnacle.business.dto.RealtorDto;
+import com.ms.dgpinnacle.business.dto.RealtorOperationDto;
 import com.ms.dgpinnacle.business.entity.Client;
 import com.ms.dgpinnacle.business.entity.ClientOperation;
 import com.ms.dgpinnacle.business.entity.LetterConfig;
@@ -85,7 +85,7 @@ public class LetterConfigNewServices {
 
 		// Check if there is an existing operation with the given data
 		Operation operation = operationRepository.findOperationByClientsAndRealtorsAndLoan(
-				request.getRealtors().stream().map(RealtorDto::getId).collect(Collectors.toList()),
+				request.getRealtors().stream().map(RealtorOperationDto::getId).collect(Collectors.toList()),
 				request.getClients().stream().map(ClientDto::getId).collect(Collectors.toList()), token.getIdUsuario());
 
 		// If there is an existing operation and no operationId is provided, throw an

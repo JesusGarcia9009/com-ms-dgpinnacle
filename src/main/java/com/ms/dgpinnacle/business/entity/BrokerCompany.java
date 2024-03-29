@@ -23,7 +23,7 @@ public class BrokerCompany implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long id;
+	private Long id;
 	private String name;
 	private String phone;
 	private String physicalAdd;
@@ -36,11 +36,11 @@ public class BrokerCompany implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
-	public long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

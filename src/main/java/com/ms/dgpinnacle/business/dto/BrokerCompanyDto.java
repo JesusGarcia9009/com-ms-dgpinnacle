@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientDto implements Serializable {
+public class BrokerCompanyDto implements Serializable {
 	
 	/**
 	 * 
@@ -20,14 +20,12 @@ public class ClientDto implements Serializable {
 
 	private Long id;
 	
-	private String cellphone;
-	
-	private String email;
-	
-	private String lastName;
-	
-	private String mailingAdd;
-	
 	private String name;
+	
+	private String phone;
+	
+	private String physicalAdd;
+	
+	private String webSite;
 
 }

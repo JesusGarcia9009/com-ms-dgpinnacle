@@ -51,7 +51,7 @@ public class Utils {
 	private Utils() {
 	}
 
-	public <T> T validateOpt(Optional<T> opt) throws Exception {
+	public static <T> T validateOpt(Optional<T> opt) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		if (!opt.isPresent()) {
 			throw new Exception(EXCEPTION_DEPENDENCY);

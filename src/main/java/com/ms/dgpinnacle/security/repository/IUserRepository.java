@@ -24,7 +24,7 @@ public interface IUserRepository extends CrudRepository<Users, Long> {
 	
 	Long countBySocialSecurityNumberOrUsername(String socialSecurityNumber, String username);
 	
-	@Query(   "   SELECT new com.ms.dgpinnacle.security.dto.UserDto (u.id ,u.socialSecurityNumber ,u.fullNames ,u.mail ,u.businessPosition ,u.pass, p.id, p.profileName) " 
+	@Query(   "   SELECT new com.ms.dgpinnacle.security.dto.UserDto (u.id ,u.socialSecurityNumber ,u.fullName ,u.mail ,u.businessPosition ,u.pass, p.id, p.profileName) " 
 			+ "     FROM Users u "
 			+ "			 inner join u.profile p ")
 	List<UserDto> findAllUsers();

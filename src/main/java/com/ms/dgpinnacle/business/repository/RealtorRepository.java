@@ -7,13 +7,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.ms.dgpinnacle.business.dto.RealtorDto;
+import com.ms.dgpinnacle.business.dto.RealtorOperationDto;
 import com.ms.dgpinnacle.business.entity.Realtor;
 
 public interface RealtorRepository extends CrudRepository<Realtor, Long> {	
 	
 	
 		//CODIGO NUEVO
-		@Query(" SELECT new com.ms.dgpinnacle.business.dto.RealtorDto( "
+		@Query(" SELECT new com.ms.dgpinnacle.business.dto.RealtorOperationDto( "
 				+ " r.id, "
 				+ "	r.cellphone, "
 				+ "	r.email, "
@@ -29,9 +30,9 @@ public interface RealtorRepository extends CrudRepository<Realtor, Long> {
 			+ "         INNER JOIN o.realtorOperations ro "
 			+ "			INNER JOIN ro.realtor r"
 			+ "   WHERE lc.id = :idLetter ")
-		List<RealtorDto> getRealtorsByLetter(Long idLetter);
+		List<RealtorOperationDto> getRealtorsByLetter(Long idLetter);
 		
-		@Query(" SELECT new com.ms.dgpinnacle.business.dto.RealtorDto( "
+		@Query(" SELECT new com.ms.dgpinnacle.business.dto.RealtorOperationDto( "
 				+ " r.id, "
 				+ "	r.cellphone, "
 				+ "	r.email, "
@@ -42,7 +43,26 @@ public interface RealtorRepository extends CrudRepository<Realtor, Long> {
 				+ "	r.notes "			
 				+ ") "
 			+ "    FROM Realtor r ")
-		List<RealtorDto> findAllRealtorList();
+		List<RealtorOperationDto> findAllRealtorList();
+		
+		@Query(" SELECT new com.ms.dgpinnacle.business.dto.RealtorDto ( "
+				+ " r.id, "
+				+ "	r.cellphone, "
+				+ "	r.email, "
+				+ "	r.lastName, "
+				+ "	r.licenseNumber, "
+				+ "	r.mailingAdd, "
+				+ "	r.name, "
+				+ "	r.notes, "
+				+ " bc.id, "
+				+ "	bc.name, "
+				+ "	bc.phone, "
+				+ "	bc.physicalAdd, "
+				+ "	bc.webSite"			
+				+ ") "
+			+ "    FROM Realtor r "
+			+ "         LEFT JOIN r.brokerCompany bc ")
+		List<RealtorDto> getRealtorList();
 		
 		Realtor findByEmailOrCellphone(String email, String cellphone);
 		

@@ -74,7 +74,7 @@ public class UserControllerImpl implements UserController {
 		boolean response = false;
 
 		try {
-			request.setPass(passwordEncoder.encode(request.getPass()));
+			request.setPassword(passwordEncoder.encode(request.getPassword()));
 			response = usersService.save(request);
 		} catch (Exception e) {
 			if (e.getMessage() == MSG_MAIL_DUPL) {
