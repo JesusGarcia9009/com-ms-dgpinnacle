@@ -1,11 +1,11 @@
-package com.ms.dgpinnacle.security.controller;
+package com.ms.dgpinnacle.business.controller;
 
 import java.io.IOException;
 
 import org.springframework.http.ResponseEntity;
 
-import com.ms.dgpinnacle.security.dto.UserAuthRequestDTO;
-import com.ms.dgpinnacle.security.dto.UserAuthResponseDTO;
+import com.ms.dgpinnacle.business.dto.security.UserAuthRequestDTO;
+import com.ms.dgpinnacle.business.dto.security.UserAuthResponseDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

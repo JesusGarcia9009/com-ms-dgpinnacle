@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ms.dgpinnacle.business.dto.ClientDto;
-import com.ms.dgpinnacle.business.service.ClientNewServices;
-import com.ms.dgpinnacle.security.token.JwtUsuario;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.business.service.ClientServices;
+import com.ms.dgpinnacle.token.JwtUsuario;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class ClientControllerImpl implements ClientController {
 	/**
 	 * Global variables
 	 */
-	private final ClientNewServices clientServices;
+	private final ClientServices clientServices;
 
 	@Override
 	@GetMapping("/list")
@@ -44,12 +44,12 @@ public class ClientControllerImpl implements ClientController {
 
 	@Override
 	@PostMapping("/save")
-	public ResponseEntity<?> save(@RequestBody ClientDto request) throws Exception {
+	public ResponseEntity<?> save(@RequestBody ClientDto request, @JwtUsuario UserPrincipal token) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		boolean response = false;
 
 		try {
-			response = clientServices.save(request);
+			response = clientServices.save(request, token);
 		} catch (Exception e) {
 			if (e.getMessage() == MSG_CLIENT_DUPL) {
 				return new ResponseEntity<String>(MSG_CLIENT_DUPL, HttpStatus.BAD_REQUEST);

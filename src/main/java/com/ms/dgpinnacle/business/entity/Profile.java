@@ -24,6 +24,7 @@ public class Profile implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Long id;
+	private String profileCode;
 	private String profileName;
 	private String description;
 	private Set<Users> users = new HashSet<Users>(0);
@@ -40,6 +41,15 @@ public class Profile implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	@Column(name = "profile_code", nullable = false, length = 25)
+	public String getProfileCode() {
+		return this.profileCode;
+	}
+
+	public void setProfileCode(String profileCode) {
+		this.profileCode = profileCode;
 	}
 
 	@Column(name = "profile_name", nullable = false, length = 100)

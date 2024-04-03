@@ -1,9 +1,7 @@
-package com.ms.dgpinnacle.security.dto;
+package com.ms.dgpinnacle.business.dto.security;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,35 +14,37 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserDto {
 	
-	@JsonProperty
 	private Long id;
 	
 	@NotNull
 	@NotBlank
-	@JsonProperty
-	private String socialSecurityNumber;
-	
-	@JsonProperty
-	private String fullName;
+	private String name;
 	
 	@NotNull
 	@NotBlank
-	@JsonProperty
-	private String mail;
-	
-	@JsonProperty
-	private String businessPosition;
+	private String lastName;
 	
 	@NotNull
 	@NotBlank
-	@JsonProperty
+	private String email;
+	
+	@NotNull
+	@NotBlank
+	private String cellphone;
+	
+	private String username;
+	
+	@NotNull
+	@NotBlank
 	private String password;
 	
+	private String mailingAdd;
+	
 	@NotNull
-	@JsonProperty
 	private Long profileId;
 	
-	@JsonProperty
+	private String profileCode;
+	
 	private String profileName;
 
 

@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ms.dgpinnacle.business.dto.EnCompassLetterConfigDto;
 import com.ms.dgpinnacle.business.dto.LetterConfigDto;
-import com.ms.dgpinnacle.business.service.LetterConfigNewServices;
-import com.ms.dgpinnacle.security.token.JwtUsuario;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.business.service.LetterConfigServices;
+import com.ms.dgpinnacle.token.JwtUsuario;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class LetterConfigControllerImpl implements LetterConfigController {
 	/**
 	 * Global variables
 	 */
-	private final LetterConfigNewServices letterConfigServices;
+	private final LetterConfigServices letterConfigServices;
 
 	@Override
 	@GetMapping("/list")

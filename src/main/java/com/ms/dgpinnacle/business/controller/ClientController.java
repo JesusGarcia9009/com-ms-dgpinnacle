@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.ms.dgpinnacle.business.dto.ClientDto;
-import com.ms.dgpinnacle.security.token.JwtUsuario;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.token.JwtUsuario;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,7 +37,7 @@ public interface ClientController {
 	 * @return
 	 */
 	@ApiOperation(value = "Save client", notes = "Inserta o actualiza los clientes de la aplicacion")
-	public ResponseEntity<?> save(ClientDto request)throws Exception;
+	public ResponseEntity<?> save(ClientDto request,UserPrincipal token)throws Exception;
 	
 	
 	/**

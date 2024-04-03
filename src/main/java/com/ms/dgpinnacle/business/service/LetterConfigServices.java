@@ -42,7 +42,7 @@ import com.ms.dgpinnacle.business.repository.LoanOfficerRepository;
 import com.ms.dgpinnacle.business.repository.OperationRepository;
 import com.ms.dgpinnacle.business.repository.RealtorOperationRepository;
 import com.ms.dgpinnacle.business.repository.RealtorRepository;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.token.UserPrincipal;
 import com.ms.dgpinnacle.utils.Utils;
 
 import lombok.RequiredArgsConstructor;
@@ -51,13 +51,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class LetterConfigNewServices {
+public class LetterConfigServices {
 
 	private final LetterConfigRepository letterConfigRepository;
 	private final ClientRepository clientRepository;
-	private final ClientNewServices clientServices;
+	private final ClientServices clientServices;
 	private final RealtorRepository realtorRepository;
-	private final RealtorNewServices realtorServices;
+	private final RealtorServices realtorServices;
 	private final EncompassClient encompassClient;
 	private final LetterFixDataRepository letterFixDataRepository;
 	private final OperationRepository operationRepository;
@@ -86,7 +86,7 @@ public class LetterConfigNewServices {
 		// Check if there is an existing operation with the given data
 		Operation operation = operationRepository.findOperationByClientsAndRealtorsAndLoan(
 				request.getRealtors().stream().map(RealtorOperationDto::getId).collect(Collectors.toList()),
-				request.getClients().stream().map(ClientDto::getId).collect(Collectors.toList()), token.getIdUsuario());
+				request.getClients().stream().map(ClientDto::getId).collect(Collectors.toList()), token.getIdUser());
 
 		// If there is an existing operation and no operationId is provided, throw an
 		// exception
@@ -95,7 +95,7 @@ public class LetterConfigNewServices {
 		}
 
 		// Map and validate the letter configuration
-		LetterConfig letter = Utils.mapperEntitySet(request, letterFixDataRepository.findById(1L).orElse(null));
+		LetterConfig letter = Utils.mapperEntitySet(request, letterFixDataRepository.findById(1L).orElse(null), token);
 
 		// Disable the previous letter if all validations pass
 		disableLetter(request);
@@ -103,8 +103,8 @@ public class LetterConfigNewServices {
 		// If we are editing and the id is not null
 		if (Objects.isNull(request.getId())) {
 			// Create a new operation if it does not exist
-			operation = new Operation("LETTER");
-			operation.setLoanOfficer(loanOfficerRepository.findById(token.getIdUsuario()).orElse(null));
+			operation = new Operation("LETTER", token.getEmail(), new Date());
+			operation.setLoanOfficer(loanOfficerRepository.findById(token.getIdUser()).orElse(null));
 			operationRepository.save(operation);
 
 			// Get and save realtors and clients for the operation
@@ -176,14 +176,14 @@ public class LetterConfigNewServices {
 	public Boolean saveEnCompass(UserPrincipal token, EnCompassLetterConfigDto request) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		
-		List<Client> clients = clientServices.getClientOrSave(request);
+		List<Client> clients = clientServices.getClientOrSave(request, token);
 		List<Realtor> realtors = realtorServices.getRealtorOrSave(token, request.getRealtors());
 		
 
 		// Check if there is an existing operation with the given data
 		Operation operation = operationRepository.findOperationByClientsAndRealtorsAndLoan(
 				clients.stream().map(Client::getId).collect(Collectors.toList()),
-				realtors.stream().map(Realtor::getId).collect(Collectors.toList()), token.getIdUsuario());
+				realtors.stream().map(Realtor::getId).collect(Collectors.toList()), token.getIdUser());
 
 		// Map and validate the letter configuration
 		LetterConfig letter = Utils.mapperEntitySet(request, letterFixDataRepository.findById(1L).orElse(null));
@@ -193,8 +193,9 @@ public class LetterConfigNewServices {
 			disableLastLetterOfOperation(operation);
 		}else {
 			// Create a new operation if it does not exist
-			operation = new Operation("LETTER");
-			operation.setLoanOfficer(loanOfficerRepository.findById(token.getIdUsuario()).orElse(null));
+			operation = new Operation("LETTER", token.getEmail(), new Date());
+			operation.setLoanOfficer(loanOfficerRepository.findByEmailOrCellphone(request.getLoanOfficer().getEmail(), request.getLoanOfficer().getCellphone()));
+			
 			operationRepository.save(operation);
 			
 			// Get and save realtors and clients for the operation

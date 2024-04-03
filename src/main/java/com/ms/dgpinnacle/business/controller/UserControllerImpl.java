@@ -1,4 +1,4 @@
-package com.ms.dgpinnacle.security.controller;
+package com.ms.dgpinnacle.business.controller;
 
 import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_END;
 import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_START;
@@ -11,20 +11,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ms.dgpinnacle.security.dto.UserDto;
-import com.ms.dgpinnacle.security.service.ProfileService;
-import com.ms.dgpinnacle.security.service.UsersService;
-import com.ms.dgpinnacle.security.token.ProfileDto;
+import com.ms.dgpinnacle.business.dto.LoanOfficerDto;
+import com.ms.dgpinnacle.business.dto.RealtorDto;
+import com.ms.dgpinnacle.business.dto.security.UserDto;
+import com.ms.dgpinnacle.business.service.LoanOfficerServices;
+import com.ms.dgpinnacle.business.service.ProfileService;
+import com.ms.dgpinnacle.business.service.RealtorServices;
+import com.ms.dgpinnacle.business.service.UsersService;
+import com.ms.dgpinnacle.token.ProfileDto;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("${dgpinnacle.base-uri}/user")
 public class UserControllerImpl implements UserController {
 	
@@ -33,19 +40,9 @@ public class UserControllerImpl implements UserController {
 	 */
 	private final UsersService usersService;
 	private final ProfileService profileService;
+	private final RealtorServices realtorServices;
+	private final LoanOfficerServices loanOfficerServices;
 	private final PasswordEncoder passwordEncoder;
-	
-	/**
-     * Class constructor with @autowire annotation
-     * 
-     * @param UsersService @see {@link UsersService}
-     */
-    public UserControllerImpl(UsersService usersService, ProfileService profileService, PasswordEncoder passwordEncoder) {
-        this.usersService = usersService;
-        this.profileService = profileService;
-        this.passwordEncoder = passwordEncoder;
-    }
-
 	
 	@Override
 	@GetMapping("/list")
@@ -54,6 +51,24 @@ public class UserControllerImpl implements UserController {
 		List<UserDto> response = usersService.findAllUsers();
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return new ResponseEntity<>(response, response == null || response.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+	}
+	
+	@Override
+	@GetMapping("/find-realtor/{id}")
+	public ResponseEntity<RealtorDto> getRealtorById(@PathVariable Long id) throws Exception {
+		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		RealtorDto response = realtorServices.getRealtorById(id);
+		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@Override
+	@GetMapping("/find-loan/{id}")
+	public ResponseEntity<LoanOfficerDto> getLoanById(@PathVariable Long id) throws Exception {
+		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		LoanOfficerDto response = loanOfficerServices.getLoanById(id);
+		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 
@@ -101,5 +116,6 @@ public class UserControllerImpl implements UserController {
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+
 	
 }

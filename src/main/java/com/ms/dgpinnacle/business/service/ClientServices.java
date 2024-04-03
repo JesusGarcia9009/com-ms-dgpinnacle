@@ -5,6 +5,7 @@ import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_START;
 import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_CLIENT_DUPL;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ import com.ms.dgpinnacle.business.entity.Client;
 import com.ms.dgpinnacle.business.entity.ClientOperation;
 import com.ms.dgpinnacle.business.entity.Operation;
 import com.ms.dgpinnacle.business.repository.ClientRepository;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,10 +27,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ClientNewServices {
+public class ClientServices {
 
 	private final ClientRepository clientRepository;
-	private final LoanOfficerNewServices loanOfficerServices;
+	private final LoanOfficerServices loanOfficerServices;
 
 	public List<ClientDto> findAllClientList(UserPrincipal token) {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
@@ -65,7 +66,7 @@ public class ClientNewServices {
 		return list;
 	}
 
-	public List<Client> getClientOrSave(EnCompassLetterConfigDto request) throws Exception {
+	public List<Client> getClientOrSave(EnCompassLetterConfigDto request, UserPrincipal token) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		List<Client> clientList = new ArrayList<>();
 		// verifico que los clientes existan en caso que no creo
@@ -79,6 +80,8 @@ public class ClientNewServices {
 				x.setLastName(item.getLastName());
 				x.setName(item.getName());
 				x.setMailingAdd(item.getMailingAdd());
+				x.setUpdateDate(new Date());
+				x.setUpdateUser(token.getEmail());
 			}
 			clientList.add(x);
 		}
@@ -89,7 +92,7 @@ public class ClientNewServices {
 		return clientList;
 	}
 
-	public Boolean save(ClientDto client) throws Exception {
+	public Boolean save(ClientDto client, UserPrincipal token) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		Client modelOp = clientRepository.findByEmailOrCellphone(client.getEmail(), client.getCellphone());
 
@@ -107,6 +110,8 @@ public class ClientNewServices {
 		model.setLastName(client.getLastName());
 		model.setMailingAdd(client.getMailingAdd());
 		model.setName(client.getName());
+		model.setUpdateDate(new Date());
+		model.setUpdateUser(token.getEmail());
 
 		clientRepository.save(model);
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));

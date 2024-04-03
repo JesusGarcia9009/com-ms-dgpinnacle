@@ -58,11 +58,43 @@ public interface RealtorRepository extends CrudRepository<Realtor, Long> {
 				+ "	bc.name, "
 				+ "	bc.phone, "
 				+ "	bc.physicalAdd, "
-				+ "	bc.webSite"			
+				+ "	bc.webSite, "			
+				+ " u.pass, "
+				+ " p.id, "
+				+ " p.profileCode, "
+				+ " p.profileName "			
+				+ ") "
+				+ "    FROM Realtor r "
+				+ "         LEFT JOIN r.brokerCompany bc "
+				+ "         INNER JOIN r.users u "
+				+ "         INNER JOIN u.profile p ")
+		List<RealtorDto> getRealtorList();
+		
+		@Query(" SELECT new com.ms.dgpinnacle.business.dto.RealtorDto ( "
+				+ " r.id, "
+				+ "	r.cellphone, "
+				+ "	r.email, "
+				+ "	r.lastName, "
+				+ "	r.licenseNumber, "
+				+ "	r.mailingAdd, "
+				+ "	r.name, "
+				+ "	r.notes, "
+				+ " bc.id, "
+				+ "	bc.name, "
+				+ "	bc.phone, "
+				+ "	bc.physicalAdd, "
+				+ "	bc.webSite, "
+				+ " u.pass, "
+				+ " p.id, "
+				+ " p.profileCode, "
+				+ " p.profileName "			
 				+ ") "
 			+ "    FROM Realtor r "
-			+ "         LEFT JOIN r.brokerCompany bc ")
-		List<RealtorDto> getRealtorList();
+			+ "         LEFT JOIN r.brokerCompany bc "
+			+ "         INNER JOIN r.users u "
+			+ "         INNER JOIN u.profile p "
+			+ "   WHERE r.id = :id ")
+		RealtorDto getRealtorById(Long id);
 		
 		Realtor findByEmailOrCellphone(String email, String cellphone);
 		

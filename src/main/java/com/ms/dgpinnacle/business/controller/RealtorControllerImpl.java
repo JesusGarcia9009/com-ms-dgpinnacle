@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ms.dgpinnacle.business.dto.RealtorDto;
 import com.ms.dgpinnacle.business.dto.RealtorOperationDto;
-import com.ms.dgpinnacle.business.service.RealtorNewServices;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.business.service.RealtorServices;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class RealtorControllerImpl implements RealtorController {
 	/**
 	 * Global variables
 	 */
-	private final RealtorNewServices realtorServices;
+	private final RealtorServices realtorServices;
 	
 	@Override
 	@GetMapping("/list-operation")

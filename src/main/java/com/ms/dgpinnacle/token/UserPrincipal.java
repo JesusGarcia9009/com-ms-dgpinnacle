@@ -1,4 +1,4 @@
-package com.ms.dgpinnacle.security.token;
+package com.ms.dgpinnacle.token;
 
 import java.util.Collection;
 
@@ -19,11 +19,9 @@ public class UserPrincipal implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Long idUsuario;
-	private String socialSecurityNumber;
+	private Long idUser;
 	private String fullName;
-	private String mail;
-	private String businessPosition;
+	private String email;
 	private String username;
 	private String password;
     private Collection<? extends GrantedAuthority> authorities;

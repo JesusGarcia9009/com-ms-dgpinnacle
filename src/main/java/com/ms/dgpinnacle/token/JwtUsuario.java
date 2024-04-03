@@ -1,4 +1,4 @@
-package com.ms.dgpinnacle.security.token;
+package com.ms.dgpinnacle.token;
 
 /**
  * JwtUsuario 

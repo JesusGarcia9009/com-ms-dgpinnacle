@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -23,11 +24,7 @@ public class LoanOfficer extends Users implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String cellphone;
-	private String email;
-	private String lastName;
-	private String mailingAdd;
-	private String name;
+	private Users users;
 	private String nmls;
 	private Set<LoanClient> loanClients = new HashSet<LoanClient>(0);
 	private Set<Operation> operations = new HashSet<Operation>(0);
@@ -35,49 +32,14 @@ public class LoanOfficer extends Users implements java.io.Serializable {
 	public LoanOfficer() {
 	}
 
-	@Column(name = "cellphone", nullable = false, length = 20)
-	public String getCellphone() {
-		return this.cellphone;
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public Users getUsers() {
+		return this.users;
 	}
 
-	public void setCellphone(String cellphone) {
-		this.cellphone = cellphone;
-	}
-
-	@Column(name = "email", nullable = false, length = 50)
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Column(name = "last_name", nullable = false, length = 36)
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	@Column(name = "mailing_add", nullable = false, length = 75)
-	public String getMailingAdd() {
-		return this.mailingAdd;
-	}
-
-	public void setMailingAdd(String mailingAdd) {
-		this.mailingAdd = mailingAdd;
-	}
-
-	@Column(name = "name", nullable = false, length = 36)
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	@Column(name = "nmls", nullable = false, length = 50)

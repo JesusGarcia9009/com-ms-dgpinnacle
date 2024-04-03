@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RealtorDto implements Serializable {
+public class LoanOfficerDto implements Serializable {
 	
 	/**
 	 * 
@@ -26,23 +26,11 @@ public class RealtorDto implements Serializable {
 	
 	private String lastName;
 	
-	private String licenseNumber;
-	
 	private String mailingAdd;
 	
 	private String name;
 	
-	private String notes;
-	
-	private Long brokerCompanyId;
-	
-	private String brokerCompanyName;
-	
-	private String brokerCompanyPhone;
-	
-	private String brokerCompanyPhysicalAdd;
-	
-	private String brokerCompanyWebSite;
+	private String nmls;
 	
 	//userdata
 	private String password;

@@ -1,4 +1,4 @@
-package com.ms.dgpinnacle.security.repository;
+package com.ms.dgpinnacle.business.repository;
 
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,7 +11,7 @@ import com.ms.dgpinnacle.business.entity.Profile;
  * @since 1.0
  * @version jdk-11
  */
-public interface IDashboardRepository extends CrudRepository<Profile, Long> {
+public interface DashboardRepository extends CrudRepository<Profile, Long> {
 
 
 	

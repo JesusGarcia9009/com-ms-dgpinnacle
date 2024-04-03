@@ -1,4 +1,4 @@
-package com.ms.dgpinnacle.security.dto;
+package com.ms.dgpinnacle.business.dto.security;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

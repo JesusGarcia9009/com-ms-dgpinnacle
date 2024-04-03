@@ -1,4 +1,4 @@
-package com.ms.dgpinnacle.security.controller;
+package com.ms.dgpinnacle.business.controller;
 
 import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_END;
 import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_START;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ms.dgpinnacle.JwtTokenProvider;
-import com.ms.dgpinnacle.security.dto.UserAuthRequestDTO;
-import com.ms.dgpinnacle.security.dto.UserAuthResponseDTO;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.business.dto.security.UserAuthRequestDTO;
+import com.ms.dgpinnacle.business.dto.security.UserAuthResponseDTO;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,8 +59,8 @@ public class LoginUserControllerImpl implements LoginUserController {
 
 		response.setUsername(userPrincipal.getUsername());
 		response.setFullName(userPrincipal.getFullName());
-		response.setId(userPrincipal.getIdUsuario());
-		response.setProfile(userPrincipal.getProfile().getName());
+		response.setId(userPrincipal.getIdUser());
+		response.setProfile(userPrincipal.getProfile().getCode());
 
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return new ResponseEntity<>(response, HttpStatus.OK);

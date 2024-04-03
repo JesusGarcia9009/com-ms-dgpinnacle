@@ -1,4 +1,4 @@
-package com.ms.dgpinnacle.security.token;
+package com.ms.dgpinnacle.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,9 +7,11 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor 
+@AllArgsConstructor
 @NoArgsConstructor
-public class AuthorityDto {
+public class ProfileDto {
 
-	private String authority;
+	private Long id;
+	private String code;
+	private String name;
 }

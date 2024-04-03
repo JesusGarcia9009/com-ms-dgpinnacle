@@ -1,17 +1,17 @@
-package com.ms.dgpinnacle.security.controller;
+package com.ms.dgpinnacle.business.controller;
 
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.ms.dgpinnacle.security.dto.UserDto;
-import com.ms.dgpinnacle.security.token.ProfileDto;
+import com.ms.dgpinnacle.business.dto.LoanOfficerDto;
+import com.ms.dgpinnacle.business.dto.RealtorDto;
+import com.ms.dgpinnacle.business.dto.security.UserDto;
+import com.ms.dgpinnacle.token.ProfileDto;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 
 /**
@@ -29,13 +29,25 @@ public interface UserController {
 	 * @return
 	 */
 	@ApiOperation(value = "Get User List", notes = "Retorna los datos referente a los usuarios de la aplicacion")
-	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorno satisfactorio"),
-            @ApiResponse(code = 401, message = "No autorizado"),
-            @ApiResponse(code = 403, message = "Prohibido"),
-            @ApiResponse(code = 404, message = "No encontrado")
-    })
 	public ResponseEntity<List<UserDto>> getUserList()throws Exception;
+	
+	/**
+	 * Method to get realtor of the application
+	 * 
+	 * @param none
+	 * @return response @see {@link RealtorDto.class }
+	 */
+	@ApiOperation(value = "Get realtor data", notes = "Retorna los datos referente a un realtor")
+	public ResponseEntity<RealtorDto> getRealtorById(Long id)throws Exception;
+	
+	/**
+	 * Method to get loan of the application
+	 * 
+	 * @param id
+	 * @return response @see {@link LoanOfficerDto.class }
+	 */
+	@ApiOperation(value = "Get loan  data", notes = "Retorna los datos referente a un loan Officer")
+	public ResponseEntity<LoanOfficerDto> getLoanById(Long id)throws Exception;
 	
 	/**
 	 * Method to list the profiles of the application
@@ -44,12 +56,6 @@ public interface UserController {
 	 * @return
 	 */
 	@ApiOperation(value = "Get profile list", notes = "Retorna los datos referente a los perfiles de la aplicacion")
-	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorno satisfactorio"),
-            @ApiResponse(code = 401, message = "No autorizado"),
-            @ApiResponse(code = 403, message = "Prohibido"),
-            @ApiResponse(code = 404, message = "No encontrado")
-    })
 	public ResponseEntity<List<ProfileDto>> getProfileList()throws Exception;
 	
 	/**
@@ -59,12 +65,6 @@ public interface UserController {
 	 * @return
 	 */
 	@ApiOperation(value = "Save user", notes = "Inserta o actualiza los usuarios de la aplicacion")
-	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorno satisfactorio"),
-            @ApiResponse(code = 401, message = "No autorizado"),
-            @ApiResponse(code = 403, message = "Prohibido"),
-            @ApiResponse(code = 404, message = "No encontrado")
-    })
 	public ResponseEntity<?> save(UserDto request)throws Exception;
 	
 	
@@ -75,12 +75,6 @@ public interface UserController {
 	 * @return
 	 */
 	@ApiOperation(value = "Delete user", notes = "Elimina los usuarios de la aplicacion")
-	@ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Retorno satisfactorio"),
-            @ApiResponse(code = 401, message = "No autorizado"),
-            @ApiResponse(code = 403, message = "Prohibido"),
-            @ApiResponse(code = 404, message = "No encontrado")
-    })
 	public ResponseEntity<?> delete(@RequestBody UserDto request) throws Exception;
 	
 	

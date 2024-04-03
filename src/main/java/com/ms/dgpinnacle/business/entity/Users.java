@@ -11,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,12 +28,15 @@ public class Users implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private Profile profile;
-	private String socialSecurityNumber;
-	private String fullname;
-	private String mail;
-	private String businessPosition;
+	private String name;
+	private String lastName;
+	private String email;
+	private String cellphone;
 	private String username;
 	private String pass;
+	private String mailingAdd;
+	private Realtor realtor;
+	private LoanOfficer loanOfficer;
 
 	public Users() {
 	}
@@ -58,40 +62,40 @@ public class Users implements java.io.Serializable {
 		this.profile = profile;
 	}
 
-	@Column(name = "social_security_number", length = 50)
-	public String getSocialSecurityNumber() {
-		return this.socialSecurityNumber;
+	@Column(name = "name", nullable = false, length = 80)
+	public String getName() {
+		return this.name;
 	}
 
-	public void setSocialSecurityNumber(String socialSecurityNumber) {
-		this.socialSecurityNumber = socialSecurityNumber;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	@Column(name = "fullname", nullable = false, length = 100)
-	public String getFullName() {
-		return this.fullname;
+	@Column(name = "last_name", nullable = false, length = 80)
+	public String getLastName() {
+		return this.lastName;
 	}
 
-	public void setFullName(String fullname) {
-		this.fullname = fullname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	@Column(name = "mail", nullable = false, length = 50)
-	public String getMail() {
-		return this.mail;
+	@Column(name = "email", nullable = false, length = 80)
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setMail(String mail) {
-		this.mail = mail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	@Column(name = "business_position", length = 50)
-	public String getBusinessPosition() {
-		return this.businessPosition;
+	@Column(name = "cellphone", nullable = false, length = 20)
+	public String getCellphone() {
+		return this.cellphone;
 	}
 
-	public void setBusinessPosition(String businessPosition) {
-		this.businessPosition = businessPosition;
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 
 	@Column(name = "username", nullable = false, length = 200)
@@ -110,6 +114,33 @@ public class Users implements java.io.Serializable {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	@Column(name = "mailing_add", length = 300)
+	public String getMailingAdd() {
+		return this.mailingAdd;
+	}
+
+	public void setMailingAdd(String mailingAdd) {
+		this.mailingAdd = mailingAdd;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
+	public Realtor getRealtor() {
+		return this.realtor;
+	}
+
+	public void setRealtor(Realtor realtor) {
+		this.realtor = realtor;
+	}
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "users")
+	public LoanOfficer getLoanOfficer() {
+		return this.loanOfficer;
+	}
+
+	public void setLoanOfficer(LoanOfficer loanOfficer) {
+		this.loanOfficer = loanOfficer;
 	}
 
 }

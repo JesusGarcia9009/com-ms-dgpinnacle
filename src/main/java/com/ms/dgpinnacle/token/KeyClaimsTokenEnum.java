@@ -1,14 +1,13 @@
-package com.ms.dgpinnacle.security.token;
+package com.ms.dgpinnacle.token;
 
 public enum KeyClaimsTokenEnum {
 	
 	ID_USUARIO("idUsuario"),
 	FULL_NAME("fullName"),
-	MAIL("mail"),
+	EMAIL("email"),
 	USERNAME("username"),
 	AUTHORITIES("authorities"),
 	PROFILE("profile"),
-	ID("id"),
 	USERINPUT("userinput"),
 	PERFILES("perfiles"),
 	APLICACIONES("aplicaciones");

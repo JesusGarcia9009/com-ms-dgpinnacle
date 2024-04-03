@@ -15,10 +15,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ms.dgpinnacle.security.token.AuthorityDto;
-import com.ms.dgpinnacle.security.token.KeyClaimsTokenEnum;
-import com.ms.dgpinnacle.security.token.ProfileDto;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.token.AuthorityDto;
+import com.ms.dgpinnacle.token.KeyClaimsTokenEnum;
+import com.ms.dgpinnacle.token.ProfileDto;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -60,15 +60,14 @@ public class JwtTokenProvider {
 
 		claims.put(KeyClaimsTokenEnum.AUTHORITIES.getDescripcion(), mapper.writeValueAsString(permisos));
 		claims.put(KeyClaimsTokenEnum.PROFILE.getDescripcion(), mapper.writeValueAsString(userPrincipal.getProfile()));
-		claims.put(KeyClaimsTokenEnum.ID_USUARIO.getDescripcion(), userPrincipal.getIdUsuario());
+		claims.put(KeyClaimsTokenEnum.ID_USUARIO.getDescripcion(), userPrincipal.getIdUser());
 		claims.put(KeyClaimsTokenEnum.FULL_NAME.getDescripcion(), userPrincipal.getFullName());
-		claims.put(KeyClaimsTokenEnum.MAIL.getDescripcion(), userPrincipal.getMail());
+		claims.put(KeyClaimsTokenEnum.EMAIL.getDescripcion(), userPrincipal.getEmail());
 		claims.put(KeyClaimsTokenEnum.USERNAME.getDescripcion(), userPrincipal.getUsername());
-		claims.put(KeyClaimsTokenEnum.ID.getDescripcion(), userPrincipal.getSocialSecurityNumber());
 
 		Date expiryDate = new Date(System.currentTimeMillis() + 24000000);
 
-		return Jwts.builder().setClaims(claims).setSubject(userPrincipal.getIdUsuario().toString())
+		return Jwts.builder().setClaims(claims).setSubject(userPrincipal.getIdUser().toString())
 				.setIssuedAt(new Date()).setExpiration(expiryDate).signWith(SignatureAlgorithm.HS512, Base64.getEncoder().encodeToString(jwtSecret.getBytes()))
 				.compact();
 	}
@@ -121,11 +120,10 @@ public class JwtTokenProvider {
 		UserPrincipal userPrincipal = new UserPrincipal();
 		userPrincipal.setAuthorities(getPermisos(token));
 		userPrincipal.setProfile(getRoles(token));
-		userPrincipal.setIdUsuario(getUserIdFromJWT(token));
+		userPrincipal.setIdUser(getUserIdFromJWT(token));
 		userPrincipal.setFullName(findKeyClaimsInData(KeyClaimsTokenEnum.FULL_NAME, claims));
-		userPrincipal.setMail(findKeyClaimsInData(KeyClaimsTokenEnum.MAIL, claims));
+		userPrincipal.setEmail(findKeyClaimsInData(KeyClaimsTokenEnum.EMAIL, claims));
 		userPrincipal.setUsername(findKeyClaimsInData(KeyClaimsTokenEnum.USERNAME, claims));
-		userPrincipal.setSocialSecurityNumber(findKeyClaimsInData(KeyClaimsTokenEnum.ID, claims));
 
 		return userPrincipal;
 	}

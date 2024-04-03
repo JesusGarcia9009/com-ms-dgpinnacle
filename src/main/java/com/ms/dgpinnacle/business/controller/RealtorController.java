@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 
 import com.ms.dgpinnacle.business.dto.RealtorDto;
 import com.ms.dgpinnacle.business.dto.RealtorOperationDto;
-import com.ms.dgpinnacle.security.token.JwtUsuario;
-import com.ms.dgpinnacle.security.token.UserPrincipal;
+import com.ms.dgpinnacle.token.JwtUsuario;
+import com.ms.dgpinnacle.token.UserPrincipal;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

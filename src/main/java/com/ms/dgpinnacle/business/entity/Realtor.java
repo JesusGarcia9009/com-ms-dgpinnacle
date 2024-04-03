@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
@@ -26,12 +27,8 @@ public class Realtor extends Users implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private BrokerCompany brokerCompany;
-	private String cellphone;
-	private String email;
-	private String lastName;
+	private Users users;
 	private String licenseNumber;
-	private String mailingAdd;
-	private String name;
 	private String notes;
 	private Set<RealtorOperation> realtorOperations = new HashSet<RealtorOperation>(0);
 
@@ -48,31 +45,14 @@ public class Realtor extends Users implements java.io.Serializable {
 		this.brokerCompany = brokerCompany;
 	}
 
-	@Column(name = "cellphone", nullable = false, length = 20)
-	public String getCellphone() {
-		return this.cellphone;
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	public Users getUsers() {
+		return this.users;
 	}
 
-	public void setCellphone(String cellphone) {
-		this.cellphone = cellphone;
-	}
-
-	@Column(name = "email", nullable = false, length = 50)
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	@Column(name = "last_name", nullable = false, length = 40)
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 
 	@Column(name = "license_number", nullable = false, length = 20)
@@ -82,24 +62,6 @@ public class Realtor extends Users implements java.io.Serializable {
 
 	public void setLicenseNumber(String licenseNumber) {
 		this.licenseNumber = licenseNumber;
-	}
-
-	@Column(name = "mailing_add", length = 500)
-	public String getMailingAdd() {
-		return this.mailingAdd;
-	}
-
-	public void setMailingAdd(String mailingAdd) {
-		this.mailingAdd = mailingAdd;
-	}
-
-	@Column(name = "name", nullable = false, length = 40)
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Column(name = "notes", nullable = false, length = 500)
