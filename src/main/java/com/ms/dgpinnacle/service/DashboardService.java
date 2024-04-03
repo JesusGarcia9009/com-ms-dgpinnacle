@@ -54,9 +54,13 @@ public class DashboardService {
 	
 	public DashboardDataDto getDashboardWidgetData() {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+//		DashboardDataDto result = dashboardRepository.getStatistics();
 		DashboardDataDto result = new DashboardDataDto();
-		dashboardRepository.findAll();
-		
+		result.setLetterConfigCount(dashboardRepository.getLetterConfigCount());
+		result.setDeletedLetterConfigCount(dashboardRepository.getDeletedLetterConfigCount());
+		result.setTopUser(dashboardRepository.getTopUser());
+		result.setClientCount(dashboardRepository.getClientCount());
+		result.setOperationCount(dashboardRepository.getOperationCount());
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return result;
 	}

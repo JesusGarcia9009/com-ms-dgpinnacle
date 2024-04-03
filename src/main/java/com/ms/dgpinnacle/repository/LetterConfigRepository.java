@@ -12,7 +12,7 @@ public interface LetterConfigRepository extends CrudRepository<LetterConfig, Lon
 
 	
 	//CODIGO NUEVO
-	@Query(" SELECT new com.ms.dgpinnacle.business.dto.LetterConfigDto( "
+	@Query(" SELECT new com.ms.dgpinnacle.dto.LetterConfigDto( "
 			+ "lc.id, "
 			+ "lc.active, "
 			+ "lc.deleted, "
@@ -52,7 +52,7 @@ public interface LetterConfigRepository extends CrudRepository<LetterConfig, Lon
 	List<LetterConfigDto> findAllLetterList();
 	
 	//CODIGO NUEVO
-		@Query(" SELECT new com.ms.dgpinnacle.business.dto.LetterConfigDto( "
+		@Query(" SELECT new com.ms.dgpinnacle.dto.LetterConfigDto( "
 				+ "lc.id, "
 				+ "lc.active, "
 				+ "lc.deleted, "
@@ -92,7 +92,7 @@ public interface LetterConfigRepository extends CrudRepository<LetterConfig, Lon
 		LetterConfigDto findLetterDataById(Long id);
 		
 		
-		@Query(" SELECT new com.ms.dgpinnacle.business.dto.LetterConfigDto( "
+		@Query(" SELECT new com.ms.dgpinnacle.dto.LetterConfigDto( "
 				+ "lc.id, "
 				+ "lc.active, "
 				+ "lc.deleted, "

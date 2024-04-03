@@ -7,6 +7,8 @@ import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_MAIL_DUPL;
 import java.io.IOException;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ms.dgpinnacle.dto.LoanOfficerDto;
 import com.ms.dgpinnacle.dto.RealtorDto;
+import com.ms.dgpinnacle.dto.security.ChangePasswordDto;
 import com.ms.dgpinnacle.dto.security.UserDto;
 import com.ms.dgpinnacle.service.LoanOfficerServices;
 import com.ms.dgpinnacle.service.ProfileService;
@@ -79,6 +82,16 @@ public class UserControllerImpl implements UserController {
 		List<ProfileDto> response = profileService.findAllProfiles();
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return new ResponseEntity<>(response, response == null || response.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
+	}
+	
+	@Override
+	@PostMapping("/change-password")
+	public ResponseEntity<?> changePassword(@RequestBody @Valid ChangePasswordDto request) throws Exception {
+		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		request.setPassword(passwordEncoder.encode(request.getPassword()));
+		boolean response = usersService.changePassword(request);
+		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 

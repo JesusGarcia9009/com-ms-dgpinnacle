@@ -10,7 +10,7 @@ import com.ms.dgpinnacle.entity.Profile;
 import com.ms.dgpinnacle.token.ProfileDto;
 
 /**
- * IProfileRepository (operaciones CRUD de la entidad) - Spring Boot
+ * ProfileRepository (operaciones CRUD de la entidad) - Spring Boot
  *
  * @author Jesus Garcia
  * @since 1.0
@@ -18,22 +18,17 @@ import com.ms.dgpinnacle.token.ProfileDto;
  */
 public interface ProfileRepository extends CrudRepository<Profile, Long> {
 
+	Profile findByProfileCode(String profileCode);
 	
 	Optional<Profile> findByProfileName(String profileName);
 	
-	@Query(   "   SELECT new com.ms.dgpinnacle.security.token.ProfileDto (p.id, p.profileCode ,p.profileName) " 
+	@Query(" SELECT new com.ms.dgpinnacle.token.ProfileDto (p.id, p.profileCode ,p.profileName) FROM Profile p ")
+	List<ProfileDto> findProfileList();
+	
+	@Query(   "   SELECT new com.ms.dgpinnacle.token.ProfileDto (p.id, p.profileCode ,p.profileName) " 
 			+ "     FROM Users u "
 			+ "          INNER JOIN u.profile p "
 			+ "    WHERE u.id = :userId ")
 	ProfileDto getProfileByUserId(Long userId);
-	
-	@Query(   "   SELECT new com.ms.dgpinnacle.security.token.ProfileDto (p.id, p.profileCode ,p.profileName) " 
-			+ "     FROM Profile p ")
-	List<ProfileDto> findProfileList();
-	
-	
-	Profile findByProfileCode(String profileCode);
-	
-	
 	
 }

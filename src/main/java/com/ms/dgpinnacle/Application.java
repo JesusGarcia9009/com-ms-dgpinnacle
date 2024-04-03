@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ImportAutoConfiguration({ SecurityConfig.class })
 @ComponentScan(basePackages = { "com.ms.dgpinnacle" })
-@EntityScan(basePackages = { "com.ms.dgpinnacle.business.entity" })
+@EntityScan(basePackages = { "com.ms.dgpinnacle.entity" })
 @EnableJpaRepositories(basePackages = { "com.ms.dgpinnacle" })
 public class Application {
 

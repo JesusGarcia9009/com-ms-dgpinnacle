@@ -9,6 +9,7 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
+import com.ms.dgpinnacle.dto.security.ChangePasswordDto;
 import com.ms.dgpinnacle.dto.security.UserDto;
 import com.ms.dgpinnacle.entity.Profile;
 import com.ms.dgpinnacle.entity.Users;
@@ -54,6 +55,16 @@ public class UsersService {
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return result;
 	}
+	
+	public Boolean changePassword(ChangePasswordDto user) throws Exception {
+		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		Users usuarioModel = Utils.validateOpt(userRepository.findById(user.getId()));
+		usuarioModel.setPass(user.getPassword());
+
+		userRepository.save(usuarioModel);
+		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		return true;
+	}
 
 	public Boolean save(UserDto user) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
@@ -83,6 +94,7 @@ public class UsersService {
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return true;
 	}
+	
 
 	public boolean delete(UserDto dto) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));

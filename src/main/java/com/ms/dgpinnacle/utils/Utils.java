@@ -162,7 +162,7 @@ public class Utils {
 		return letter;
 	}
 
-	public static LetterConfig mapperEntitySet(EnCompassLetterConfigDto request, LetterFixData fixData)
+	public static LetterConfig mapperEntitySet(EnCompassLetterConfigDto request, LetterFixData fixData, UserPrincipal token)
 			throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		LetterConfig letter = new LetterConfig();
@@ -204,6 +204,8 @@ public class Utils {
 			letter.setTaxes(request.getTaxes());
 			letter.setUniqueKey(Utils.generateString());
 			letter.setLetterFixdata(fixData);
+			letter.setUpdateDate(new Date());
+			letter.setUpdateUser(token.getEmail());
 
 		} else {
 			throw new Exception(MSG_MAX_PAYMENT_TO_HIGH);

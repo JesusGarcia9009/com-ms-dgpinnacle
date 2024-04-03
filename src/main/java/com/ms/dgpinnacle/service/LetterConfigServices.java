@@ -186,7 +186,7 @@ public class LetterConfigServices {
 				realtors.stream().map(Realtor::getId).collect(Collectors.toList()), token.getIdUser());
 
 		// Map and validate the letter configuration
-		LetterConfig letter = Utils.mapperEntitySet(request, letterFixDataRepository.findById(1L).orElse(null));
+		LetterConfig letter = Utils.mapperEntitySet(request, letterFixDataRepository.findById(1L).orElse(null), token);
 
 		// Disable the previous letter if all validations pass
 		if (Objects.nonNull(operation)) {

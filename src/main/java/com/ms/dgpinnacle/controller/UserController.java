@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.ms.dgpinnacle.dto.LoanOfficerDto;
 import com.ms.dgpinnacle.dto.RealtorDto;
+import com.ms.dgpinnacle.dto.security.ChangePasswordDto;
 import com.ms.dgpinnacle.dto.security.UserDto;
 import com.ms.dgpinnacle.token.ProfileDto;
 
@@ -57,6 +58,15 @@ public interface UserController {
 	 */
 	@ApiOperation(value = "Get profile list", notes = "Retorna los datos referente a los perfiles de la aplicacion")
 	public ResponseEntity<List<ProfileDto>> getProfileList()throws Exception;
+	
+	/**
+	 * Method to change pasword for the users of the application
+	 * 
+	 * @param dto UserAuthRequestDTO.class 
+	 * @return
+	 */
+	@ApiOperation(value = "Change password user", notes = "actualiza la contraseña de los los usuarios de la aplicacion")
+	public ResponseEntity<?> changePassword(ChangePasswordDto request) throws Exception;
 	
 	/**
 	 * Method to save user of the application

@@ -12,7 +12,7 @@ public interface LoanOfficerRepository extends CrudRepository<LoanOfficer, Long>
 	
 	LoanOfficer findByEmailOrCellphone(String email, String cellphone);
 	
-	@Query(" SELECT new com.ms.dgpinnacle.business.dto.LoanOfficerDto ( "
+	@Query(" SELECT new com.ms.dgpinnacle.dto.LoanOfficerDto ( "
 			+ " l.id, "
 			+ "	l.cellphone, "
 			+ "	l.email, "
@@ -23,8 +23,7 @@ public interface LoanOfficerRepository extends CrudRepository<LoanOfficer, Long>
 			+ " l.pass, "
 			+ " p.id, "
 			+ " p.profileCode, "
-			+ " p.profileName "			
-			+ ") "
+			+ " p.profileName ) "
 		+ "    FROM LoanOfficer l "
 		+ "         INNER JOIN l.users u "
 		+ "         INNER JOIN u.profile p "

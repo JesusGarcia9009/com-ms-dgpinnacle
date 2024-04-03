@@ -2,8 +2,12 @@ package com.ms.dgpinnacle.controller;
 
 import java.io.IOException;
 
-import org.springframework.http.ResponseEntity;
+import javax.validation.Valid;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import com.ms.dgpinnacle.dto.security.RegisterRequestDTO;
 import com.ms.dgpinnacle.dto.security.UserAuthRequestDTO;
 import com.ms.dgpinnacle.dto.security.UserAuthResponseDTO;
 
@@ -37,5 +41,7 @@ public interface LoginUserController {
             @ApiResponse(code = 404, message = "No encontrado")
     })
 	public ResponseEntity<UserAuthResponseDTO> autenticacionUsuario(UserAuthRequestDTO dto)throws IOException;
+	
+	public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO request) throws Exception;
 	
 }

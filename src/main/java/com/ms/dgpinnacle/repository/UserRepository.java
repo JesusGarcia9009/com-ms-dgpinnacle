@@ -10,7 +10,7 @@ import com.ms.dgpinnacle.dto.security.UserDto;
 import com.ms.dgpinnacle.entity.Users;
 
 /**
- * IUserRepository (operaciones CRUD de la entidad) - Spring Boot
+ * UserRepository (operaciones CRUD de la entidad) - Spring Boot
  *
  * @author Jesus Garcia
  * @since 1.0
@@ -20,20 +20,8 @@ public interface UserRepository extends CrudRepository<Users, Long> {
 
 	Optional<Users> findByUsernameOrEmail(String Username, String email);
 	
-	@Query(   "   SELECT new com.ms.dgpinnacle.security.dto.UserDto ("
-			+ "			 u.id, "
-			+ "			 u.name, "
-			+ "			 u.lastName, "
-			+ "			 u.email, "
-			+ "			 u.cellphone, "
-			+ "			 u.username, "
-			+ "			 u.pass, "
-			+ "			 u.mailingAdd, "
-			+ "			 p.id, "
-			+ "			 p.profileCode, "
-			+ "			 p.profileName) " 
-			+ "     FROM Users u "
-			+ "			 inner join u.profile p ")
+	@Query(   "   SELECT new com.ms.dgpinnacle.dto.security.UserDto ( u.id, u.name, u.lastName, u.email, u.cellphone, u.username, u.pass, u.mailingAdd, p.id, p.profileCode, p.profileName) " 
+			+ "     FROM Users u INNER JOIN u.profile p ")
 	List<UserDto> findAllUsers();
 	
 	Users findByEmailOrUsername(String email, String username);

@@ -10,7 +10,7 @@ import com.ms.dgpinnacle.entity.BrokerCompany;
 
 public interface BrokerCompanyRepository extends CrudRepository<BrokerCompany, Long> {
 	
-	@Query(" SELECT new com.ms.dgpinnacle.business.dto.BrokerCompanyDto( "
+	@Query(" SELECT new com.ms.dgpinnacle.dto.BrokerCompanyDto( "
 			+ " bc.id, "
 			+ "	bc.name, "
 			+ "	bc.phone, "

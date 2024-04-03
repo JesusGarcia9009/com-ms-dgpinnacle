@@ -2,7 +2,7 @@ package com.ms.dgpinnacle.token;
 
 public enum KeyClaimsTokenEnum {
 	
-	ID_USUARIO("idUsuario"),
+	ID_USUARIO("idUser"),
 	FULL_NAME("fullName"),
 	EMAIL("email"),
 	USERNAME("username"),
