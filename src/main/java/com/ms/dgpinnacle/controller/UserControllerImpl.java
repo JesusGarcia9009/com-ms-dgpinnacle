@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ms.dgpinnacle.dto.ClientDto;
 import com.ms.dgpinnacle.dto.LoanOfficerDto;
 import com.ms.dgpinnacle.dto.RealtorDto;
 import com.ms.dgpinnacle.dto.security.ChangePasswordDto;
 import com.ms.dgpinnacle.dto.security.UserDto;
+import com.ms.dgpinnacle.service.ClientServices;
 import com.ms.dgpinnacle.service.LoanOfficerServices;
 import com.ms.dgpinnacle.service.ProfileService;
 import com.ms.dgpinnacle.service.RealtorServices;
@@ -44,6 +46,7 @@ public class UserControllerImpl implements UserController {
 	private final UsersService usersService;
 	private final ProfileService profileService;
 	private final RealtorServices realtorServices;
+	private final ClientServices clientServices;
 	private final LoanOfficerServices loanOfficerServices;
 	private final PasswordEncoder passwordEncoder;
 	
@@ -61,6 +64,15 @@ public class UserControllerImpl implements UserController {
 	public ResponseEntity<RealtorDto> getRealtorById(@PathVariable Long id) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		RealtorDto response = realtorServices.getRealtorById(id);
+		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@Override
+	@GetMapping("/find-client/{id}")
+	public ResponseEntity<ClientDto> getClientById(@PathVariable Long id) throws Exception {
+		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
+		ClientDto response = clientServices.getClientById(id);
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

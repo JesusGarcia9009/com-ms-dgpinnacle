@@ -98,7 +98,6 @@
 			<version>5.2.0</version>
 		</dependency>
 
-		<!-- Nuevas dependencias -->
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
@@ -120,14 +119,17 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 		</dependency>
-		<!-- Fin nuevas dependencias -->
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 
-		<!-- Generacion pdf: flying saucer pdf -->
 		<dependency>
 			<groupId>com.itextpdf</groupId>
 			<artifactId>html2pdf</artifactId>
@@ -149,6 +151,11 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 
@@ -196,29 +203,4 @@
 		</plugins>
 	</build>
 	
-	<repositories>
-		<repository>
-			<id>project.demo</id>
-			<url>https://pkgs.dev.azure.com/arquitecturalpsa/0ff3bcc6-646d-4b5c-90e4-2025e777eec6/_packaging/arquitectura-digital/maven/v1</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<distributionManagement>
-		<repository>
-			<id>arquitectura-digital</id>
-			<url>https://pkgs.dev.azure.com/arquitecturalpsa/0ff3bcc6-646d-4b5c-90e4-2025e777eec6/_packaging/arquitectura-digital/maven/v1</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</distributionManagement>
-
 </project>

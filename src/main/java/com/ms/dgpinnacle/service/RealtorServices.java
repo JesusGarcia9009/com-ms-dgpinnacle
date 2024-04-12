@@ -20,6 +20,7 @@ import com.ms.dgpinnacle.entity.Operation;
 import com.ms.dgpinnacle.entity.Profile;
 import com.ms.dgpinnacle.entity.Realtor;
 import com.ms.dgpinnacle.entity.RealtorOperation;
+import com.ms.dgpinnacle.mail.EmailService;
 import com.ms.dgpinnacle.repository.BrokerCompanyRepository;
 import com.ms.dgpinnacle.repository.ProfileRepository;
 import com.ms.dgpinnacle.repository.RealtorRepository;
@@ -38,6 +39,7 @@ public class RealtorServices {
 	private final BrokerCompanyRepository brokerCompanyRepository;
 	private final ProfileRepository profileRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final EmailService emailService;
 
 	// CRUD
 	public RealtorDto getRealtorById(Long id) {
@@ -87,6 +89,7 @@ public class RealtorServices {
 		model.setBrokerCompany(broker);
 		
 		realtorRepository.save(model);
+		emailService.sendMail(realtor.getEmail(), "realtor", realtor.getPassword());
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return Boolean.TRUE;
 	}
@@ -150,7 +153,7 @@ public class RealtorServices {
 			model.setEmail(item.getEmail());
 			model.setCellphone(item.getCellphone());
 			model.setUsername(item.getEmail().substring(0, item.getEmail().indexOf("@")));
-			model.setPass(passwordEncoder.encode(item.getFullName()));
+			model.setPass(passwordEncoder.encode(model.getName()));
 			model.setMailingAdd(item.getMailingAdd());
 
 			model.setLicenseNumber(item.getLicenseNumber());
@@ -163,6 +166,10 @@ public class RealtorServices {
 
 		}
 		realtorRepository.saveAll(list);
+		
+		for (Realtor realtor : list) {
+			emailService.sendMail(realtor.getEmail(), "realtor", realtor.getName());
+		}
 
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return list;

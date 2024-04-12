@@ -2,6 +2,8 @@ package com.ms.dgpinnacle.client;
 
 import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_END;
 import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_START;
+import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_ERROR_TOKEN;
+import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_ERROR_LOAN;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -10,7 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -19,18 +20,18 @@ import com.ms.dgpinnacle.client.dto.EncompassResponseDto;
 import com.ms.dgpinnacle.client.dto.EncompassTokenResponseDto;
 import com.ms.dgpinnacle.utils.Utils;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-@Service
-public class EncompassClientClientImpl implements EncompassClient {
+@RequiredArgsConstructor
+public class EncompassClientImpl implements EncompassClient {
 
 	/**
 	 * RestTemplateMs restTemplateMs
 	 */
-	/*@Autowired
-	public RestTemplate restTemplate;*/
+	public final RestTemplate restTemplate;
 
 	@Value("${dgpinnacle.token}")
 	private String tokenUrl;
@@ -51,7 +52,7 @@ public class EncompassClientClientImpl implements EncompassClient {
 	private String password;
 
 	@Override
-	public EncompassTokenResponseDto getToken() {
+	public EncompassTokenResponseDto getToken() throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 
 		// Parámetros de la solicitud
@@ -67,7 +68,7 @@ public class EncompassClientClientImpl implements EncompassClient {
 		
 		HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
 
-		ResponseEntity<EncompassTokenResponseDto> response = new RestTemplate().exchange(
+		ResponseEntity<EncompassTokenResponseDto> response = restTemplate.exchange(
 	            tokenUrl,
 	            HttpMethod.POST,
 	            requestEntity,
@@ -80,7 +81,7 @@ public class EncompassClientClientImpl implements EncompassClient {
 		if (response.getStatusCode().is2xxSuccessful()) {
 			responseBody = response.getBody();
 		} else {
-			throw new RuntimeException("Error al obtener el token de acceso: " + response.getStatusCode());
+			throw new Exception(MSG_ERROR_TOKEN + response.getStatusCode() );
 		}
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return responseBody;
@@ -92,12 +93,11 @@ public class EncompassClientClientImpl implements EncompassClient {
 	 */
 	
 	@Override
-	public EncompassResponseDto getLoan(String eToken, String loanId) {
+	public EncompassResponseDto getLoan(String eToken, String loanId) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
-	    //headers.setBearerAuth(eToken);
 	    headers.set("Authorization", "Bearer " + eToken);
 
 		HttpEntity<String> requestEntity = new HttpEntity<>(headers);
@@ -105,7 +105,7 @@ public class EncompassClientClientImpl implements EncompassClient {
 		log.info(loanUrl + "/" + loanId);	
 		log.info(headers.getContentType() + " & " + headers.getValuesAsList("Authorization"));
   
-		ResponseEntity<EncompassResponseDto> response = new RestTemplate().exchange(
+		ResponseEntity<EncompassResponseDto> response = restTemplate.exchange(
 				loanUrl + "/" + loanId,
 	            HttpMethod.GET,
 	            requestEntity,
@@ -118,7 +118,7 @@ public class EncompassClientClientImpl implements EncompassClient {
 		if (response.getStatusCode().is2xxSuccessful()) {
 			responseBody = response.getBody();
 		} else {
-			throw new RuntimeException("Error al obtener el Loan: " + response.getStatusCode());
+			throw new Exception(MSG_ERROR_LOAN + response.getStatusCode() );
 		}
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return responseBody;

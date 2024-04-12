@@ -43,7 +43,7 @@ public interface LetterConfigController {
      * @return A ResponseEntity containing a EnCompassLetterConfigDto objects from ecompass.
      */
     @ApiOperation(value = "Get letter EnCompass", notes = "Retorna los datos referente a la carta de EnCompass")
-    public ResponseEntity<EnCompassLetterConfigDto> findDetailsEnCompass(String loanId);
+    public ResponseEntity<EnCompassLetterConfigDto> findDetailsEnCompass(String loanId) throws Exception;
     
     /**
 	 * Method to save letter of the application

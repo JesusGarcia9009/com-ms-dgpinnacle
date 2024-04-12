@@ -24,7 +24,7 @@ public interface UserRepository extends CrudRepository<Users, Long> {
 			+ "     FROM Users u INNER JOIN u.profile p ")
 	List<UserDto> findAllUsers();
 	
-	Users findByEmailOrUsername(String email, String username);
+	Users findByEmailIgnoreCase(String email);
 	
 	Long countByEmailOrUsername(String email, String username);
 	

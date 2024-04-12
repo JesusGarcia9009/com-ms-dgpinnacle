@@ -5,6 +5,8 @@ import static com.ms.dgpinnacle.utils.ConstantUtil.LOG_START;
 import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_LOAN_NOT_EXIST_DUPL;
 import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_MAX_PAYMENT_TO_HIGH;
 import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_OPERATION_DUPL;
+import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_ERROR_TOKEN;
+import static com.ms.dgpinnacle.utils.ConstantUtil.MSG_ERROR_LOAN;
 
 import java.util.List;
 
@@ -50,11 +52,24 @@ public class LetterConfigControllerImpl implements LetterConfigController {
 				response == null || response.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK);
 	}
 
+	
 	@Override
 	@GetMapping("/details/{loanId}")
-	public ResponseEntity<EnCompassLetterConfigDto> findDetailsEnCompass(@PathVariable String loanId) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public ResponseEntity<EnCompassLetterConfigDto> findDetailsEnCompass(@PathVariable String loanId) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
-		EnCompassLetterConfigDto response = letterConfigServices.findDetailsEnCompass(loanId);
+		EnCompassLetterConfigDto response = null;
+		try {
+			response = letterConfigServices.findDetailsEnCompass(loanId);
+		} catch (Exception e) {
+			if (e.getMessage().startsWith("ERROR_TOKEN :: Response -> ")) {
+				return new ResponseEntity(MSG_ERROR_TOKEN, HttpStatus.BAD_REQUEST);
+			} else if (e.getMessage().startsWith("ERROR_LOAN :: Response -> ")) {
+				return new ResponseEntity(MSG_ERROR_LOAN, HttpStatus.BAD_REQUEST);
+			} else {
+				throw new Exception(e.getMessage());
+			}
+		}
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

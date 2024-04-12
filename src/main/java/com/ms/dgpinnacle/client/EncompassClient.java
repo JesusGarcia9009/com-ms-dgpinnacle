@@ -18,7 +18,7 @@ public interface EncompassClient {
      *
      * @return the token response {@link EncompassTokenResponseDto}
      */
-    public EncompassTokenResponseDto getToken();
+    public EncompassTokenResponseDto getToken() throws Exception;
 
     /**
      * Retrieves a full loan data.
@@ -27,6 +27,6 @@ public interface EncompassClient {
      * @param loanId the ID of the loan to retrieve
      * @return the loan data response {@link EncompassResponseDto}
      */
-    public EncompassResponseDto getLoan(String eToken, String loanId);
+    public EncompassResponseDto getLoan(String eToken, String loanId) throws Exception ;
     
 }

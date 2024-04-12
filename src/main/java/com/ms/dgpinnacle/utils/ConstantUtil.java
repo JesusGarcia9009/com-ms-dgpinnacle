@@ -25,6 +25,9 @@ public class ConstantUtil {
 	public static final String MSG_LOAN_NOT_EXIST_DUPL = "LOAN_NOT_EXIST";
 	public static final String MSG_MAX_PAYMENT_TO_HIGH = "MSG_MAX_PAYMENT_TO_HIGH";
 	public static final String MSG_MAIL_DUPL = "MAIL_DUPL";
+	
+	public static final String MSG_ERROR_TOKEN = "ERROR_TOKEN :: Response -> ";
+	public static final String MSG_ERROR_LOAN = "ERROR_LOAN :: Response -> ";
 
 	/**
 	 * Logs

@@ -3,8 +3,10 @@ package com.ms.dgpinnacle.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.ms.dgpinnacle.dto.ClientDto;
 import com.ms.dgpinnacle.dto.LoanOfficerDto;
 import com.ms.dgpinnacle.dto.RealtorDto;
 import com.ms.dgpinnacle.dto.security.ChangePasswordDto;
@@ -40,6 +42,16 @@ public interface UserController {
 	 */
 	@ApiOperation(value = "Get realtor data", notes = "Retorna los datos referente a un realtor")
 	public ResponseEntity<RealtorDto> getRealtorById(Long id)throws Exception;
+	
+	
+	/**
+	 * Method to get client detail from user id
+	 * 
+	 * @param none
+	 * @return response @see {@link ClientDto.class }
+	 */
+	@ApiOperation(value = "Get client data", notes = "Retorna los datos referente a un cliente")
+	public ResponseEntity<ClientDto> getClientById(@PathVariable Long id) throws Exception;
 	
 	/**
 	 * Method to get loan of the application

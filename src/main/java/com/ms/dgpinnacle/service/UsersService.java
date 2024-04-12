@@ -68,8 +68,7 @@ public class UsersService {
 
 	public Boolean save(UserDto user) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
-		String username = user.getEmail().substring(0, user.getEmail().indexOf("@"));
-		Users model = userRepository.findByEmailOrUsername(user.getEmail(), username);
+		Users model = userRepository.findByEmailIgnoreCase(user.getEmail());
 
 		if ((Objects.nonNull(model) && Objects.isNull(user.getId()))
 				|| Objects.nonNull(model) && !user.getId().equals(model.getId()))
@@ -85,7 +84,7 @@ public class UsersService {
 		usuarioModel.setLastName(user.getLastName());
 		usuarioModel.setEmail(user.getEmail());
 		usuarioModel.setCellphone(user.getCellphone());
-		usuarioModel.setUsername(username);
+		usuarioModel.setUsername(user.getEmail().substring(0, user.getEmail().indexOf("@")));
 		usuarioModel.setPass(user.getPassword());
 		usuarioModel.setMailingAdd(user.getMailingAdd());
 		usuarioModel.setProfile(profile);

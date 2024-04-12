@@ -34,6 +34,7 @@ import com.ms.dgpinnacle.entity.LetterConfig;
 import com.ms.dgpinnacle.entity.Operation;
 import com.ms.dgpinnacle.entity.Realtor;
 import com.ms.dgpinnacle.entity.RealtorOperation;
+import com.ms.dgpinnacle.mail.EmailService;
 import com.ms.dgpinnacle.repository.ClientOperationRepository;
 import com.ms.dgpinnacle.repository.ClientRepository;
 import com.ms.dgpinnacle.repository.LetterConfigRepository;
@@ -66,6 +67,7 @@ public class LetterConfigServices {
 	private final LoanOfficerRepository loanOfficerRepository;
     private final ServletContext servletContext;
 	private final TemplateEngine templateEngine;
+	private final EmailService emailService;
 
 	public List<LetterConfigDto> findAllLetterList(UserPrincipal token) {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
@@ -100,6 +102,9 @@ public class LetterConfigServices {
 		// Disable the previous letter if all validations pass
 		disableLetter(request);
 
+		ArrayList<RealtorOperation> realtors = null;
+		ArrayList<ClientOperation> clients = null;
+		
 		// If we are editing and the id is not null
 		if (Objects.isNull(request.getId())) {
 			// Create a new operation if it does not exist
@@ -108,8 +113,8 @@ public class LetterConfigServices {
 			operationRepository.save(operation);
 
 			// Get and save realtors and clients for the operation
-			ArrayList<RealtorOperation> realtors = realtorServices.getRealtorOperationList(request, operation);
-			ArrayList<ClientOperation> clients = clientServices.getClientOperationList(request, operation);
+			realtors = realtorServices.getRealtorOperationList(request, operation);
+			clients = clientServices.getClientOperationList(request, operation);
 			clientOperationRepository.saveAll(clients);
 			realtorOperationRepository.saveAll(realtors);
 		} else {
@@ -120,6 +125,10 @@ public class LetterConfigServices {
 		// Set the operation for the letter and save the letter configuration
 		letter.setOperation(operation);
 		letterConfigRepository.save(letter);
+		
+		for (ClientOperation client : clients) {
+			emailService.sendMail(client.getClient().getEmail(), "letter", letter.getUniqueKey());
+		}
 
 		log.info(String.format(LOG_END, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		return Boolean.TRUE;
@@ -137,7 +146,7 @@ public class LetterConfigServices {
 	
 	
 	
-	public EnCompassLetterConfigDto findDetailsEnCompass(String loanId) {
+	public EnCompassLetterConfigDto findDetailsEnCompass(String loanId) throws Exception {
 		log.info(String.format(LOG_START, Thread.currentThread().getStackTrace()[1].getMethodName()));
 		EnCompassLetterConfigDto result = new EnCompassLetterConfigDto();
 
